@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="editProfile.css" rel="stylesheet" type="text/css" />
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://dkmatka.com/" />
+<link rel="alternate" href="https://dkmatka.com/" hreflang="en-in" />
+<meta name="robots" content="index,follow">
+<style>
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+input[type], select {
+  width: auto;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: auto;
+  background-color: #4CAF50;
+  color: white;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+</style>
+</head>
+<body>
+<style>
+.button{ border: 2px solid #FF5733; background-color: #FF5733; color: #fff; padding: 4px 9px; border-radius: 8px 0; box-shadow: 0px 0px 1px #000000d6;font-weight: 600; font-size: 14px; transition: all .3s; margin-top: 5px;}
+
+      @keyframes glowing {
+        0% {
+          background-color: #FF5733;
+          box-shadow: 0 0 5px #2ba805;
+        }
+        50% {
+          background-color: #FF5733;
+          box-shadow: 0 0 20px #49e819;
+        }
+        100% {
+          background-color: #FF5733;
+          box-shadow: 0 0 5px #2ba805;
+        }
+      }
+      .button {
+        animation: glowing 1300ms infinite;
+      }
+.result1{ background-color: #232F3E; color: #fff; text-decoration: none; font-weight:bold;  padding:5px;text-align: left;}
+.result3{ background-color: #232F3E; color: #fff; text-decoration: none; font-weight:bold;  padding:5px;text-align: right;}
+.result2{  margin:0px; position: absolute;
+  top: 5px;
+  left: 50px;text-decoration: none; border-radius:5px; text-align: left;}
+
+.result3{  margin:0px; position: absolute;
+  top: 10px;
+  right : 1px;text-decoration: none; border-radius:5px; text-align: right;}
+
+.result2 a{ color:#fff;}
+
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 8px;
+  text-decoration: none;
+  font-size: 17px;
+  color: #ffff;
+  display: block;
+  font-weight:bold; 
+  text-align:left;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  font-size: 36px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 0px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+
+@media screen and (min-width: 1200px) {
+  body{margin-left: 300px; margin-right: 300px;}
+  .result1{ background-color: #232F3E; color: #fff; text-decoration: none; font-weight:bold;  padding:5px;text-align: left;}
+.result2{  margin:0px; position: absolute; top: 5px; left: 350px;text-decoration: none; border-radius:5px; text-align: left;}
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 300px;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 60px;
+}
+
+}
+
+.open{
+  color:blue;
+  font-size:15px;
+ }
+.close{
+  color:red;
+  font-size:15px;
+
+}
+</style>
+ 
+<div id="mySidenav" class="sidenav">
+<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+<b><img src="https://dkmatka.com///dkmatka.com/icon/user.jpg" style="height:30px; width:30px;"><br>Abr<br>8474636344</b>
+<a href="index.html" class="active">Home</a>
+<a href="user_profile.html">My Profile</a>
+<a href="user_transaction.html">My Transaction</a>
+<a href="user_wallet.html">Your Wallet</a>
+<a href="logout.html">Logout</a>
+</div>
+<div class="result1"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+<div class="result2"><a href="http://dkmatka.com/"><font size="5">Dk Matka</font><br>Register No.: 8474636344</a></div>
+<div class="result3"><img src="https://dkmatka.com/icon/wallet.png" style="height:30px; width:30px;">
+<input type="hidden" id="PointsAdd" value="0"> Rs.0</div>
+</div>
+<div>  
+           <button onclick="myFunction()" class="button">Withdraw Money</button>
+<script>
+function myFunction() {
+  alert("insufficient funds in Wallet. वॉलेट में पैसा कम है!");
+}
+</script>
+ <a href="user_transaction.html"><button class="button">WalletHistory</button></a> <a href="https://wa.me/+918461973109/?text=मुझे वॉलेट में पैसा डलवाना है। , I Want Add Money In Dk Matka Wallet No.8474636344"><button class="button">Add Money</button></a></th>
+<br><a href="https://dkmatka.com/add_money_upi.html" class="pay"><button class="button">Add Money Via <img height="15px" src="https://dkmatka.com/icon/phonepe.svg"></img>             <img height="15px" src="https://dkmatka.com/icon/google-pay.svg"></img>
+            <img height="15px" src="https://dkmatka.com/icon/paytm-upi.png"></img></button></a></div>           
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  
+}
+</script>
+   
+
+
+<div style="display:none; background:gold;color:#000;padding:10px 20px; margin-top:5px; border-radius:25px; text-decoration:none;" class="app-button">Download  Dk Matka App<br>Click Here</div>
+<div class="newuser">
+
+<form action="submit_user_detail.html" method="post">
+<h3 style="color:red;">User Detail - </h3><hr><br>
+
+Phonepay Number<br>
+<input type="number" name="phonepay" value=""> <br><br>
+
+GooglePay<br>
+<input type="number" name="googlepay" value=""> <br><br>
+
+Paytm<br>
+<input type="number" name="paytm" value=""> <br>
+
+Upi Id<br>
+<input type="text" name="upi_id" value=""> <br>
+
+<input type="submit" name="submit" value="Submit Detail">
+</form>
+
+<h4>Agar Aap Withdraw Karna Chahte Hai To Apni Detail Sahi Kare! Worng Detail No Withdraw</h4>
+</body>
+</html>
