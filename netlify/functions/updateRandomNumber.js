@@ -1,47 +1,29 @@
+// netlify/functions/updateRandomNumber.js
 const admin = require('firebase-admin');
-const serviceAccount = require('./keys/serviceAccountKey.json');
 
-// Initialize Firebase
+// Initialize Firebase Admin SDK
+const serviceAccount = require('./keys/serviceAccountKey.json'); // Path to your service account key
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://matka-78bf1-default-rtdb.europe-west1.firebasedatabase.app'
+  databaseURL: "https://matka-78bf1-default-rtdb.europe-west1.firebasedatabase.app"
 });
 
 const db = admin.database();
 
-// Store the timestamp of the last execution
-let lastExecution = new Date().getTime();
+exports.handler = async function(event, context) {
+  const randomNumber = Math.floor(Math.random() * 100); // Generate random number between 0 and 99
 
-exports.handler = async (event, context) => {
   try {
-    const now = new Date().getTime();
-    const elapsedTime = now - lastExecution;
-
-    if (elapsedTime >= 30000) { // 30 seconds
-      // Update the last execution time
-      lastExecution = now;
-
-      // Example operation: write a test value to Firebase
-      await db.ref('test').set({
-        message: 'Netlify function executed at ' + new Date().toISOString(),
-        timestamp: new Date().toISOString()
-      });
-
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ message: 'Function executed successfully!' })
-      };
-    } else {
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ message: 'Not enough time has passed since last execution' })
-      };
-    }
+    await db.ref('randomNumber').set(randomNumber); // Update the random number in Firebase
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: `Random number ${randomNumber} written to database.` }),
+    };
   } catch (error) {
-    console.error('Error:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: 'Function execution failed' })
+      body: JSON.stringify({ error: error.message }),
     };
   }
 };
