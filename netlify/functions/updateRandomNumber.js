@@ -1,5 +1,4 @@
 const admin = require('firebase-admin');
-const moment = require('moment'); // For date formatting
 
 // Initialize Firebase Admin SDK
 const serviceAccount = require('./keys/serviceAccountKey.json'); // Path to your service account key
@@ -15,7 +14,11 @@ exports.handler = async function(event, context) {
   const randomNumber = Math.floor(Math.random() * 100); // Generate random number between 0 and 99
 
   // Format the current date as DD_MM_YYYY
-  const dateKey = moment().format('DD_MM_YYYY');
+  const today = new Date();
+  const day = String(today.getDate()).padStart(2, '0');
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const year = today.getFullYear();
+  const dateKey = `${day}_${month}_${year}`;
 
   try {
     // Get the reference to the database location for today's date
