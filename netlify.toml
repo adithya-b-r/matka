@@ -1,7 +1,6 @@
-[build]
-  functions = "netlify/functions"
+[functions]
+runtime = "nodejs16"
 
-# Schedule functions directly using the schedule property
-[[functions]]
-  name = "generateRandomNumber"
-  schedule = "* * * * *" # Schedule to run every minute
+[functions.generateRandomNumber]
+handler = "generateRandomNumber.handler"
+schedule = "* * * * *"
