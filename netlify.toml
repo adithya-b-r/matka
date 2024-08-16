@@ -1,0 +1,6 @@
+[build]
+  functions = "netlify/functions"
+
+[[functions]]
+  name = "updateRandomNumber"
+  schedule = "*/30 * * * *"
