@@ -1,0 +1,44 @@
+body{background-color: #000; color: #fff; font-weight:bold; font-family:Georgia,serif; text-align:center; margin:auto;}  
+.back{ background-color:#795548; color: #fff; }
+.new1 { background-color: mintcream; color: black; font-weight: bold;   font-size: large; text-decoration: none; border-width: 2px; border-color: red; border-style: inset;  text-align: center; padding: 5px; }
+.new1 a { color:  blue; }
+.new { background-color: mintcream; color: black; font-weight: bold;   font-size: 25px; text-decoration: none; border-width: 2px; border-color: red; border-style: inset;  text-align: center; padding: 5px; }
+.new a { color:  blue; }
+.CHARTP {background-color:#fff; color:red; border-width:1px; border-color:red; border-style:groove; margin-top: 5px; margin-bottom: 5px;  padding-top: 10px; padding-bottom: 10px; border-radius:5px; }
+.CHARTP a {color:blue; text-decoration:none;}
+.CHARTS { background-color:#fff; color:#FF0000; border-width: 1px; border-color: lime; border-style: groove; margin-top: 5px; margin-bottom: 5px; padding-top: 10px; padding-bottom: 10px; border-radius:5px;}
+.CHARTS a {color:red; text-decoration:none;}
+
+.myOtherTable1{ width:auto; background-color:white; border-collapse:collapse; color:#000; font-size:0px; border-color: black; border-style: inset; border-radius: 10px; text-align: center;  font-weight: bold; font-style: bold; font-family: times new roman; font-size: large;} 
+.myOtherTable1 th { color:green; font-variant:small-caps; border-bottom:1px solid green;height:15px;} 
+.myOtherTable1 td { font-family:Georgia, Garamond, serif; border-bottom:1px solid #555;height:15px; font-style:bold;} 
+.CHART{border:1px; background-color:#fff; color:#000; font-weight:bold;font-style:solid; border-style: groove; padding:5px; margin-top:5px; margin-bottom:5px; font-size:large;text-shadow: 1px 1px gold; border-radius:10px; }
+.CHART a {color:green; text-decoration:none;}
+
+
+.footer{ background-color: yellow; color: black; font-size: large; border-width: 3px; border-color: blue; border-style: inset; font-weight: bold; margin-top: 5px; margin-bottom: 5px; font-style: italic; padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;text-shadow: 1px 1px white; }
+
+.result { background-color:#fff; color: black; font-weight: bold; font-size: large; text-shadow:1px 1px #BCBCBD;}
+.result a {color:red; text-decoration:none;}
+
+.HEADLINES { background-color:  red;color: white;font-weight: bold; font-style: italic; font-size: large; text-decoration: NONE;text-shadow: 1px 1px blue;  }
+
+
+.ti{ background-color: #a9264f; color: white; font-size: large; border-width: 3px; border-style: inset;border-color: lime; font-weight: bold; margin-top: 3px; margin-bottom: 3px; font-style: italic; padding-top: 3px; padding-bottom: 3px; padding-left: 3px; padding-right: 3px; }
+
+.resultgame{ background-color:skyblue; color: darkred; font-weight: bold; font-size: large; text-shadow:1px 1px #BCBCBD;}
+.resultgame a {color:red; text-decoration:none;}
+
+.RESULTS{   background-color: #fff;
+    color: #F44336;
+    border-width: 1px;
+    border-color: #9E9E9E;
+    border-style: groove;
+    font-weight: inherit;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+}
+
