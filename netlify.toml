@@ -2,16 +2,6 @@
   publish = "public"
   functions = "netlify/functions"
 
-[[functions]]
-  directory = "netlify/functions"
+[functions]
+  # Optionally specify the runtime for the functions
   runtime = "nodejs18.x"
-
-[[functions]]
-  name = "updateRandomNumber"
-  schedule = "*/30 * * * *"  # Runs every 30 seconds
-
-[[plugins]]
-  package = "@netlify/plugin-functions-install-core"
-
-[[plugins]]
-  package = "@netlify/plugin-scheduled-functions"
