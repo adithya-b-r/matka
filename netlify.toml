@@ -3,7 +3,5 @@
 
 [functions]
   node_bundler = "esbuild"
-
-[functions]
   name = "updateRandomNumber"
   schedule = "* * * * *"
