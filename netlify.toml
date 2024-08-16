@@ -1,8 +1,7 @@
 [build]
   functions = "netlify/functions"
 
-[[plugins]]
-  package = "@netlify/plugin-schedule"
-
-[[plugins.inputs]]
-  schedule = "* * * * *"
+# Schedule functions directly using the schedule property
+[[functions]]
+  name = "generateRandomNumber"
+  schedule = "* * * * *" # Schedule to run every minute
