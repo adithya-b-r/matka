@@ -1,9 +1,7 @@
 {
-  "name": "your-project-name",
+  "name": "dkmatka",
   "version": "1.0.0",
   "dependencies": {
-    "firebase-admin": "^11.0.0",  // Add this line
-    // other dependencies
+    "firebase-admin": "11.0.0",
   },
-  // other fields
 }
