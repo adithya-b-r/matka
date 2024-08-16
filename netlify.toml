@@ -1,6 +1,2 @@
-[functions]
-runtime = "nodejs16"
-
-[functions.generateRandomNumber]
-handler = "generateRandomNumber.handler"
-schedule = "* * * * *"
+[functions."updateRandomNumber"]
+schedule = "@hourly"
