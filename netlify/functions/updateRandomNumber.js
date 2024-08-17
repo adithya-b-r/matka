@@ -35,9 +35,9 @@ exports.handler = async function(event, context) {
         const ref = db.ref(`randomNumbers/${dateKey}/${game.name}`);
 
         const numbers = [];
-        for (let i = 0; i < 3; i++) {
-          numbers.push(Math.floor(Math.random() * 100));
-        }
+        
+        numbers.push(Math.floor(Math.random() * 100));
+        
 
         const snapshot = await ref.once('value');
         const existingData = snapshot.val() || '';
