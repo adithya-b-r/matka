@@ -38,7 +38,7 @@ exports.handler = async function(event, context) {
 
         // Generate 3 random numbers
         const numbers = [];
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 1; i++) {
           numbers.push(Math.floor(Math.random() * 100)); // Generate random number between 0 and 99
         }
 
