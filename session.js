@@ -1,6 +1,7 @@
 // Import Firebase SDKs
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js';
+import { getDatabase, ref, get, child } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -16,6 +17,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getDatabase(app);
 
 // Function to sign up a user
 export function signUpUser(phoneNumber, password) {
@@ -69,4 +71,39 @@ export function logoutUser() {
     .catch((error) => {
       console.error('Error signing out:', error);
     });
+}
+
+// Function to get game results
+export async function fetchAllGameResults() {
+  try {
+    const results = {};
+    const games = [
+      "JOKER DAY",
+      "BANGAL DAY",
+      "DHANRAJ DAY",
+      "DHANLAXMI DAY",
+      "DHAN KUBER DAY",
+      "MUMBAI WORLI DAY"
+    ];
+
+    const dbRef = ref(db, 'randomNumbers');
+    const snapshot = await get(dbRef);
+
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      for (const date in data) {
+        results[date] = {};
+        for (const game of games) {
+          results[date][game] = data[date][game] || '---';
+        }
+      }
+    } else {
+      console.log('No data available.');
+    }
+
+    return results;
+  } catch (error) {
+    console.error('Error fetching game results:', error);
+    throw error;
+  }
 }
