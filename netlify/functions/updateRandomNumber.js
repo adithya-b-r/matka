@@ -37,12 +37,16 @@ exports.handler = async function(event, context) {
         const numbers = [];
         
         numbers.push(Math.floor(Math.random() * 100));
+
         
 
         const snapshot = await ref.once('value');
         const existingData = snapshot.val() || '';
         const updatedData = existingData ? `${existingData}, ${numbers.join(', ')}` : `${numbers.join(', ')}`;
 
+        console.log(updatedData);
+        console.log(`randomNumbers/${dateKey}/${game.name}`)
+        
         await ref.set(updatedData);
 
         return {
