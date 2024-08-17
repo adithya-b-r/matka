@@ -66,7 +66,7 @@ exports.handler = async function(event, context) {
 
         console.log(`Numbers ${newNumbers.join(', ')} appended to ${game.name} for ${formattedDate}.`);
         }else{
-          console.log("Already "+existingNumbers.length+" exists.");
+          console.log("Already "+existingNumbers.length+" numbers exists.");
         }
 
         
