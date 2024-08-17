@@ -32,6 +32,7 @@ exports.handler = async function(event, context) {
 
   // Extract the hour from the time string
   const currentHourIST = parseInt(time.split(':')[0], 10);
+  const currentMinIST = parseInt(time.split(':')[1], 10);
 
   try {
     let gameActive = false;
