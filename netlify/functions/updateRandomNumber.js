@@ -20,20 +20,17 @@ const games = [
 ];
 
 exports.handler = async function(event, context) {
+  // Get the current date/time in IST and format as needed
   const today = new Date();
-  const currentHourIST = today.getUTCHours() + 5; // Adjust for IST (UTC +5:30)
-  const currentMinuteIST = today.getUTCMinutes() + 30;
-
-  if (currentMinuteIST >= 60) {
-    currentHourIST += 1;
-  }
-
-  console.log(`Current Hour (IST): ${currentHourIST}`);
-
-  const day = String(today.getDate()).padStart(2, '0');
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const year = today.getFullYear();
+  const dateTimeIST = today.toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false }).replace(/,/g, '');
+  console.log(`Current Date/Time (IST): ${dateTimeIST}`);
+  
+  // Extract the date in DD_MM_YYYY format
+  const [date, time] = dateTimeIST.split(' ');
+  const [day, month, year] = date.split('-');
   const dateKey = `${day}_${month}_${year}`;
+  
+  const currentHourIST = parseInt(time.split(':')[0], 10); // Get the hour in 24-hour format
 
   try {
     for (const game of games) {
@@ -41,17 +38,14 @@ exports.handler = async function(event, context) {
         const ref = db.ref(`randomNumbers/${dateKey}/${game.name}`);
 
         const numbers = [];
-        
-        numbers.push(Math.floor(Math.random() * 100));
-        
+        for (let i = 0; i < 3; i++) {
+          numbers.push(Math.floor(Math.random() * 100));
+        }
 
         const snapshot = await ref.once('value');
         const existingData = snapshot.val() || '';
         const updatedData = existingData ? `${existingData}, ${numbers.join(', ')}` : `${numbers.join(', ')}`;
 
-        console.log(updatedData);
-        console.log(`randomNumbers/${dateKey}/${game.name}`)
-        
         await ref.set(updatedData);
 
         return {
