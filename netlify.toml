@@ -1,2 +1,2 @@
 [functions."updateRandomNumber"]
-schedule = "58 3 * * *"
+schedule = "15 * * * *"
