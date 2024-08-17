@@ -9,18 +9,25 @@ admin.initializeApp({
 
 const db = admin.database();
 
-// Define the games and their time slots
-const games = [
-  { name: "GAZIYABAAD", startHour: 0, endHour: 4 },
-  { name: "DESAWAR", startHour: 4, endHour: 8 },
-  { name: "GALI", startHour: 8, endHour: 12 },
-  { name: "FARIDABAD", startHour: 12, endHour: 16 },
-  { name: "GOLDSTAR", startHour: 16, endHour: 20 },
-  { name: "GHAZIABAD DIN", startHour: 20, endHour: 24 },
+// Define the games and the specific times they should be active
+const gameTimes = [
+  "05:15", "16:15", "16:30", "17:15", "18:00", "20:50", "23:50"
 ];
 
+const games = [
+  "GAZIYABAAD",
+  "DESAWAR",
+  "GALI",
+  "FARIDABAD",
+  "GOLDSTAR",
+  "GHAZIABAD DIN"
+];
+
+// Define the time window in minutes
+const timeWindow = 3; // Allowable window in minutes
+
 exports.handler = async function(event, context) {
-  // Get the current date/time in IST and format as needed
+  // Get the current date/time in IST
   const today = new Date();
   const dateTimeIST = today.toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false }).replace(/,/g, '');
   console.log(`Current Date/Time (IST): ${dateTimeIST}`);
@@ -30,55 +37,35 @@ exports.handler = async function(event, context) {
   const [day, month, year] = date.split('-');
   const formattedDate = `${day}`.replaceAll('/','_');
 
-  // Extract the hour from the time string
-  const currentHourIST = parseInt(time.split(':')[0], 10);
-  const currentMinIST = parseInt(time.split(':')[1], 10);
+  // Extract the time in HH:MM format
+  const currentTimeIST = time.slice(0, 5);
+  const currentMinutes = parseInt(time.slice(3, 5), 10);
 
   try {
-    let gameActive = false;
-
     for (const game of games) {
-      if (currentHourIST >= game.startHour && currentHourIST < game.endHour) {
-        gameActive = true;
-        const ref = db.ref(`randomNumbers/${formattedDate}/${game.name}`);
+      for (const gameTime of gameTimes) {
+        const [gameHour, gameMinute] = gameTime.split(':').map(Number);
+        const gameTimeInMinutes = gameHour * 60 + gameMinute;
+        const currentTimeInMinutes = parseInt(currentTimeIST.slice(0, 2), 10) * 60 + currentMinutes;
 
-        const numbers = [];
-        for (let i = 0; i < 3; i++) {
-          numbers.push(Math.floor(Math.random() * 100));
-        }
+        // Check if current time is within the allowed window of the game time
+        if (Math.abs(currentTimeInMinutes - gameTimeInMinutes) <= timeWindow) {
+          const ref = db.ref(`randomNumbers/${formattedDate}/${game}`);
+          
+          const snapshot = await ref.once('value');
+          const existingData = snapshot.val();
 
-        const snapshot = await ref.once('value');
-        const existingData = snapshot.val() || '';
-        const existingNumbers = existingData.split(', ').filter(num => num).map(Number);
-
-        // Ensure unique numbers
-        const newNumbers = [];
-        if(existingNumbers.length < 1){
-          while (newNumbers.length < 1 - existingNumbers.length) {
+          if (!existingData) { // If no number is stored for the current time
             const newNumber = Math.floor(Math.random() * 100);
-            if (!existingNumbers.includes(newNumber)) {
-              newNumbers.push(newNumber);
-              console.log("Generating new Number : "+newNumber);
-            }
-          } 
-
-          const updatedData = existingNumbers.concat(newNumbers).join(', ');
-          await ref.set(updatedData);
-
-        console.log(`Numbers ${newNumbers.join(', ')} appended to ${game.name} for ${formattedDate}.`);
-        }else{
-          console.log("Already "+existingNumbers.length+" numbers exists.");
+            await ref.set(newNumber);
+            console.log(`Number ${newNumber} generated for ${game} at ${currentTimeIST} on ${formattedDate}.`);
+          } else {
+            console.log(`Number already generated for ${game} at ${currentTimeIST} on ${formattedDate}.`);
+          }
         }
-
-        
-        return;  // Exit handler function after processing the first active game
       }
     }
-
-    if (!gameActive) {
-      console.log('No game is currently active.');
-    }
   } catch (error) {
-    console.error('Error updating random number:', error);
+    console.error('Error generating random number:', error);
   }
 };
