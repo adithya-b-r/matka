@@ -26,9 +26,7 @@ exports.handler = async function(event, context) {
   console.log(`Current Date/Time (IST): ${dateTimeIST}`);
   
   // Extract the date in DD_MM_YYYY format
-  const [date, time] = dateTimeIST.split(' ');
-  const [day, month, year] = date.split('-');
-  const dateKey = `${day}_${month}_${year}`;
+  const formattedDate = `${String(new Date().getDate()).padStart(2, '0')}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${new Date().getFullYear()}`;
   
   const currentHourIST = parseInt(time.split(':')[0], 10); // Get the hour in 24-hour format
 
