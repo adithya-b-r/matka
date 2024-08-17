@@ -33,7 +33,7 @@ exports.handler = async function(event, context) {
   try {
     for (const game of games) {
       if (currentHourIST >= game.startHour && currentHourIST < game.endHour) {
-        const ref = db.ref(`randomNumbers/${dateKey}/${game.name}`);
+        const ref = db.ref(`randomNumbers/${formattedDate}/${game.name}`);
 
         const numbers = [];
         for (let i = 0; i < 3; i++) {
