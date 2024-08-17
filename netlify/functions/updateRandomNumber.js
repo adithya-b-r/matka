@@ -45,9 +45,20 @@ exports.handler = async function(event, context) {
 
         const snapshot = await ref.once('value');
         const existingData = snapshot.val() || '';
-        const updatedData = existingData ? `${existingData}, ${numbers.join(', ')}` : `${numbers.join(', ')}`;
+        
+        //Start
+          if (existingNumbers.length < 3) {
+          const numbers = [];
+          while (numbers.length < 3 - existingNumbers.length) {
+            const newNumber = Math.floor(Math.random() * 100);
+            if (!existingNumbers.includes(newNumber)) {
+              numbers.push(newNumber);
+            }
+          }
 
-        await ref.set(updatedData);
+          const updatedData = existingData ? `${existingData}, ${numbers.join(', ')}` : `${numbers.join(', ')}`;
+          await ref.set(updatedData);
+        //End
 
         return {
           statusCode: 200,
