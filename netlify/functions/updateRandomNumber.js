@@ -21,8 +21,14 @@ const games = [
 
 exports.handler = async function(event, context) {
   const today = new Date();
-  const currentHour = today.getUTCHours() + 5.5; // Adjust for IST (UTC +5:30)
-  console.log(`Current Hour (IST): ${currentHour}`);
+  const currentHourIST = today.getUTCHours() + 5; // Adjust for IST (UTC +5:30)
+  const currentMinuteIST = today.getUTCMinutes() + 30;
+
+  if (currentMinuteIST >= 60) {
+    currentHourIST += 1;
+  }
+
+  console.log(`Current Hour (IST): ${currentHourIST}`);
 
   const day = String(today.getDate()).padStart(2, '0');
   const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -31,13 +37,12 @@ exports.handler = async function(event, context) {
 
   try {
     for (const game of games) {
-      if (currentHour >= game.startHour && currentHour < game.endHour) {
+      if (currentHourIST >= game.startHour && currentHourIST < game.endHour) {
         const ref = db.ref(`randomNumbers/${dateKey}/${game.name}`);
 
         const numbers = [];
         
         numbers.push(Math.floor(Math.random() * 100));
-
         
 
         const snapshot = await ref.once('value');
