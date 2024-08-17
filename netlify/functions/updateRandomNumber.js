@@ -50,12 +50,12 @@ exports.handler = async function(event, context) {
         //Start
            if (existingNumbers.length < 3) {
           const numbers = [];
-          while (numbers.length < 3 - existingNumbers.length) {
+          //while (numbers.length < 3 - existingNumbers.length) {
             const newNumber = Math.floor(Math.random() * 100);
             if (!existingNumbers.includes(newNumber)) {
               numbers.push(newNumber);
             }
-          }
+          //}
 
           const updatedData = existingData ? `${existingData}, ${numbers.join(', ')}` : `${numbers.join(', ')}`;
           await ref.set(updatedData);
@@ -63,11 +63,13 @@ exports.handler = async function(event, context) {
           return {
             statusCode: 200,
             body: JSON.stringify({ message: `Numbers ${numbers.join(', ')} appended to ${game.name} for ${formattedDate}.` }),
+            console.log(`Numbers ${numbers.join(', ')} appended to ${game.name} for ${formattedDate}.`);
           };
         } else {
           return {
             statusCode: 200,
             body: JSON.stringify({ message: 'Already 3 numbers present, no update made.' }),
+            console.log("Already 3 numbers present, no update made.");
           };
         }
       }
@@ -76,6 +78,7 @@ exports.handler = async function(event, context) {
     return {
       statusCode: 400,
       body: JSON.stringify({ message: 'No game is currently active.' }),
+      console.log('No game is currently active.');
     };
   } catch (error) {
     console.error('Error updating random number:', error);
