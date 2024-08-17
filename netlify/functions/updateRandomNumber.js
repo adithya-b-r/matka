@@ -52,11 +52,16 @@ exports.handler = async function(event, context) {
 
         // Ensure unique numbers
         const newNumbers = [];
-        while (newNumbers.length < 3 - existingNumbers.length) {
-          const newNumber = Math.floor(Math.random() * 100);
-          if (!existingNumbers.includes(newNumber)) {
-            newNumbers.push(newNumber);
+        if(existingNumbers.length < 3){
+          while (newNumbers.length < 3 - existingNumbers.length) {
+            const newNumber = Math.floor(Math.random() * 100);
+            if (!existingNumbers.includes(newNumber)) {
+              newNumbers.push(newNumber);
+              console.log("Generating new Number : "+newNumber);
+            }
           }
+
+          
         }
 
         const updatedData = existingNumbers.concat(newNumbers).join(', ');
