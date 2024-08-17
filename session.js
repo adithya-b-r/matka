@@ -78,12 +78,12 @@ export async function fetchAllGameResults() {
   try {
     const results = {};
     const games = [
-      "JOKER DAY",
-      "BANGAL DAY",
-      "DHANRAJ DAY",
-      "DHANLAXMI DAY",
-      "DHAN KUBER DAY",
-      "MUMBAI WORLI DAY"
+      "GAZIYABAAD",
+      "DESAWAR",
+      "GALI",
+      "FARIDABAD",
+      "GOLDSTAR",
+      "GHAZIABAD DIN"
     ];
 
     const dbRef = ref(db, 'randomNumbers');

@@ -221,36 +221,31 @@
       const dateTimeIST = today.toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false }).replace(/,/g, '');
       const [date, time] = dateTimeIST.split(' ');
       const hours = parseInt(time.split(':')[0], 10);
+      const minutes = parseInt(time.split(':')[1], 10);
 
-      console.log(hours);
-
-      if (hours >= 0 && hours < 4) {
-        document.getElementById("game1").innerText = "Betting is Runing Now";
+        document.getElementById("game1").innerText = "Betting is Running Now";
         document.getElementById("game1").style.color = "green";
-        document.getElementById("game1Status").innerHTML = "<a href='/game/game.html?siteName=BANGAL DAY'>Play Now</a>";
-      } else if (hours >= 4 && hours < 8) {
-        document.getElementById("game2").innerText = "Betting is Runing Now";
+        // document.getElementById("game1Status").innerHTML = "<a href='/game/game.html?siteName=DESAWAR'>Play Now</a>";
+
+        document.getElementById("game2").innerText = "Betting is Running Now";
         document.getElementById("game2").style.color = "green";
-        document.getElementById("game2Status").innerHTML = "<a href='/game/game.html?siteName=DHANLAXMI DAY'>Play Now</a>";
-      } else if (hours >= 8 && hours < 12) {
-        document.getElementById("game3").innerText = "Betting is Runing Now";
+        // document.getElementById("game2Status").innerHTML = "<a href='/game/game.html?siteName=FARIDABAD'>Play Now</a>";
+        
+        document.getElementById("game3").innerText = "Betting is Running Now";
         document.getElementById("game3").style.color = "green";
-        document.getElementById("game3Status").innerHTML = "<a href='/game/game.html?siteName=MUMBAI WORLI DAY'>Play Now</a>";
-      } else if (hours >= 12 && hours < 16) {
-        document.getElementById("game4").innerText = "Betting is Runing Now";
+        // document.getElementById("game3Status").innerHTML = "<a href='/game/game.html?siteName=GHAZIABAD DIN'>Play Now</a>";
+        
+        document.getElementById("game4").innerText = "Betting is Running Now";
         document.getElementById("game4").style.color = "green";
-        document.getElementById("game4Status").innerHTML = "<a href='/game/game.html?siteName=DHANRAJ DAY'>Play Now</a>";
-      } else if (hours >= 16 && hours < 20) {
-        document.getElementById("game5").innerText = "Betting is Runing Now";
+        // document.getElementById("game4Status").innerHTML = "<a href='/game/game.html?siteName=GALI'>Play Now</a>";
+        
+        document.getElementById("game5").innerText = "Betting is Running Now";
         document.getElementById("game5").style.color = "green";
-        document.getElementById("game5Status").innerHTML = "<a href='/game/game.html?siteName=JOKER DAY'>Play Now</a>";
-      } else if (hours >= 20 && hours < 24) {
-        document.getElementById("game6").innerText = "Betting is Runing Now";
+        // document.getElementById("game5Status").innerHTML = "<a href='/game/game.html?siteName=GAZIYABAAD'>Play Now</a>";
+        
+        document.getElementById("game6").innerText = "Betting is Running Now";
         document.getElementById("game6").style.color = "green";
-        document.getElementById("game6Status").innerHTML = "<a href='/game/game.html?siteName=DHAN KUBER DAY'>Play Now</a>";
-      } else {
-        console.log("Something Wrong");
-      }
+        // document.getElementById("game6Status").innerHTML = "<a href='/game/game.html?siteName=GOLDSTAR'>Play Now</a>";
     }
 
     export function manipulateNav() {
@@ -334,71 +329,78 @@
   <table border="1px;" width="100%;" border-color="#fff" cellspacing="0"
     style="background-color:#fff; color:#000; border-radius:10px; border-radius:2px; border-style:groove; border-size:1px; margin-top:5px; margin-bottom:5px;text-align: center;">
     <tr>
-      <td><span style="font-size:22px;">BANGAL DAY </span><br><span style="color:purple; font-size:14px;">(12:00AM -
-          04:00AM)</span><br><span style="font-size:20px; color:blue"><b><span id="game1Status"><a href='/results.html'>View Result</a></span</b></span><br>
-        <span style="color:red; font-size:15px; font-weight: 600;" id="game1">Betting is Closed</span>
+      <td><span style="font-size:22px; color: green; font-weight: bold;; color: green;;">DESAWAR </span><br><span
+          style="color:purple; font-size:14px;">[05:15 AM]</span><br><span style="font-size:20px; color:blue"><b><span
+              id="game1Status"><a href='/results.html'>View Result</a></span< /b></span><br>
+            <span style="color:red; font-size:15px; font-weight: 600;" id="game1">Betting is Closed</span>
       </td>
-      <td width="30%"><a onclick="checkGame('BANGAL DAY', 1)"><img src="/icon/play.jpg"
+      <td width="30%"><a onclick="checkGame('DESAWAR', 1)"><img src="/icon/play.jpg"
             style="width:30px;height:30px;"><br><span style="color:red;">Play Game</span></a></td>
     </tr>
     <table>
       <table border="1px;" width="100%;" border-color="#fff" cellspacing="0"
         style="background-color:#fff; color:#000; border-radius:10px; border-radius:2px; border-style:groove; border-size:1px; margin-top:5px; margin-bottom:5px;text-align: center;">
         <tr>
-          <td><span style="font-size:22px;">DHANLAXMI DAY </span><br><span style="color:purple; font-size:14px;">(04:00
-              AM - 08:00 AM)</span><br><span style="font-size:20px; color:blue"><b><span id="game2Status"><a href='/results.html'>View Result</a></span</b></span><br>
-            <span style="color:red; font-size:15px; font-weight: 600;" id="game2">Betting is Closed</span>
+          <td><span style="font-size:22px; color: green; font-weight: bold;; color: green;;">FARIDABAD </span><br><span
+              style="color:purple; font-size:14px;">[06:00 PM]</span><br><span
+              style="font-size:20px; color:blue"><b><span id="game2Status"><a href='/results.html'>View Result</a>
+                  </span< /b></span><br>
+                <span style="color:red; font-size:15px; font-weight: 600;" id="game2">Betting is Closed</span>
           </td>
-          <td width="30%"><a onclick="checkGame('DHANLAXMI DAY', 2)"><img src="/icon/play.jpg"
+          <td width="30%"><a onclick="checkGame('FARIDABAD', 2)"><img src="/icon/play.jpg"
                 style="width:30px;height:30px;"><br><span style="color:red;">Play Game</span></a></td>
         </tr>
         <table>
           <table border="1px;" width="100%;" border-color="#fff" cellspacing="0"
             style="background-color:#fff; color:#000; border-radius:10px; border-radius:2px; border-style:groove; border-size:1px; margin-top:5px; margin-bottom:5px;text-align: center;">
             <tr>
-              <td><span style="font-size:22px;">MUMBAI WORLI DAY </span><br><span
-                  style="color:purple; font-size:14px;">(08:00 AM - 12:00 PM)</span><br><span
-                  style="font-size:20px; color:blue"><b><span id="game3Status"><a href='/results.html'>View Result</a></span</b></span><br>
-                <span style="color:red; font-size:15px; font-weight: 600;" id="game3">Betting is Closed</span>
+              <td><span style="font-size:22px; color: green; font-weight: bold;; color: green;;">GHAZIABAD DIN
+                </span><br><span style="color:purple; font-size:14px;">[04:30 PM]</span><br><span
+                  style="font-size:20px; color:blue"><b><span id="game3Status"><a href='/results.html'>View Result</a>
+                      </span< /b></span><br>
+                    <span style="color:red; font-size:15px; font-weight: 600;" id="game3">Betting is Closed</span>
               </td>
-              <td width="30%"><a onclick="checkGame('MUMBAI WORLI DAY', 3)"><img src="/icon/play.jpg"
+              <td width="30%"><a onclick="checkGame('GHAZIABAD DIN', 3)"><img src="/icon/play.jpg"
                     style="width:30px;height:30px;"><br><span style="color:red;">Play Game</span></a></td>
             </tr>
             <table>
               <table border="1px;" width="100%;" border-color="#fff" cellspacing="0"
                 style="background-color:#fff; color:#000; border-radius:10px; border-radius:2px; border-style:groove; border-size:1px; margin-top:5px; margin-bottom:5px;text-align: center;">
                 <tr>
-                  <td><span style="font-size:22px;">DHANRAJ DAY </span><br><span
-                      style="color:purple; font-size:14px;">(12:00PM - 04:00PM)
-                    </span><br><span style="font-size:20px; color:blue"><b><span id="game4Status"><a href='/results.html'>View Result</a></span</b></span><br>
-                    <span style="color:red; font-size:15px; font-weight: 600;" id="game4">Betting is Closed</span>
+                  <td><span style="font-size:22px; color: green; font-weight: bold;; color: green;;">GALI
+                    </span><br><span style="color:purple; font-size:14px;">[11:50 PM]
+                    </span><br><span style="font-size:20px; color:blue"><b><span id="game4Status"><a
+                            href='/results.html'>View Result</a></span< /b></span><br>
+                        <span style="color:red; font-size:15px; font-weight: 600;" id="game4">Betting is Closed</span>
                   </td>
-                  <td width="30%"><a onclick="checkGame('DHANRAJ DAY', 4)"><img src="/icon/play.jpg"
+                  <td width="30%"><a onclick="checkGame('GALI', 4)"><img src="/icon/play.jpg"
                         style="width:30px;height:30px;"><br><span style="color:red;">Play Game</span></a></td>
                 </tr>
                 <table>
                   <table border="1px;" width="100%;" border-color="#fff" cellspacing="0"
                     style="background-color:#fff; color:#000; border-radius:10px; border-radius:2px; border-style:groove; border-size:1px; margin-top:5px; margin-bottom:5px;text-align: center;">
                     <tr>
-                      <td><span style="font-size:22px;">JOKER DAY </span><br><span
-                          style="color:purple; font-size:14px;">(04:00 PM - 08:00 PM)</span><br><span
-                          style="font-size:20px; color:blue"><b><span id="game5Status"><a href='/results.html'>View Result</a></span></b></span><br>
+                      <td><span style="font-size:22px; color: green; font-weight: bold;; color: green;;">GAZIYABAAD
+                        </span><br><span style="color:purple; font-size:14px;">[08:50 PM]</span><br><span
+                          style="font-size:20px; color:blue"><b><span id="game5Status"><a href='/results.html'>View
+                                Result</a></span></b></span><br>
                         <span style="color:red; font-size:15px; font-weight: 600;" id="game5">Betting is Closed</span>
                       </td>
-                      <td width="30%"><a onclick="checkGame('JOKER DAY', 5)"><img src="/icon/play.jpg"
+                      <td width="30%"><a onclick="checkGame('GAZIYABAAD', 5)"><img src="/icon/play.jpg"
                             style="width:30px;height:30px;"><br><span style="color:red;">Play Game</span></a></td>
                     </tr>
                     <table>
                       <table border="1px;" width="100%;" border-color="#fff" cellspacing="0"
                         style="background-color:#fff; color:#000; border-radius:10px; border-radius:2px; border-style:groove; border-size:1px; margin-top:5px; margin-bottom:5px;text-align: center;">
                         <tr>
-                          <td><span style="font-size:22px;">DHAN KUBER DAY </span><br><span
-                              style="color:purple; font-size:14px;">(08:00 PM - 12:00 AM)</span><br><span
-                              style="font-size:20px; color:blue"><b><span id="game6Status"><a href='/results.html'>View Result</a></span</b></span><br>
-                            <span style="color:red; font-size:15px; font-weight: 600;" id="game6">Betting is
-                              Closed</span>
+                          <td><span style="font-size:22px; color: green; font-weight: bold;; color: green;;">GOLDSTAR
+                            </span><br><span style="color:purple; font-size:14px;">[04:15 PM]</span><br><span
+                              style="font-size:20px; color:blue"><b><span id="game6Status"><a href='/results.html'>View
+                                    Result</a></span< /b></span><br>
+                                <span style="color:red; font-size:15px; font-weight: 600;" id="game6">Betting is
+                                  Closed</span>
                           </td>
-                          <td width="30%"><a onclick="checkGame('DHAN KUBER DAY', 6)"><img src="/icon/play.jpg"
+                          <td width="30%"><a onclick="checkGame('GOLDSTAR', 6)"><img src="/icon/play.jpg"
                                 style="width:30px;height:30px;"><br><span style="color:red;">Play Game</span></a></td>
                         </tr>
                         <table>
@@ -409,36 +411,8 @@
                             }
 
                             function checkGame(siteName, gameIndex) {
-                              const today = new Date();
-                              const dateTimeIST = today.toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false }).replace(/,/g, '');
-                              const [date, time] = dateTimeIST.split(' ');
-                              const currentTime = parseInt(time.split(':')[0], 10);
-
-                              if (currentTime >= 0 && currentTime < 4 && gameIndex == 1) {
-                                console.log("Time is between 00:00 and 04:00");
-                                window.location.href = "/game/game.html?siteName=" + siteName;
-                              } else if (currentTime >= 4 && currentTime < 8 && gameIndex == 2) {
-                                console.log("Time is between 04:00 and 08:00");
-                                window.location.href = "/game/game.html?siteName=" + siteName;
-                              } else if (currentTime >= 8 && currentTime < 12 && gameIndex == 3) {
-                                console.log("Time is between 08:00 and 12:00");
-                                window.location.href = "/game/game.html?siteName=" + siteName;
-                              } else if (currentTime >= 12 && currentTime < 16 && gameIndex == 4) {
-                                console.log("Time is between 12:00 and 16:00");
-                                window.location.href = "/game/game.html?siteName=" + siteName;
-                              } else if (currentTime >= 16 && currentTime < 20 && gameIndex == 5) {
-                                console.log("Time is between 16:00 and 20:00");
-                                window.location.href = "/game/game.html?siteName=" + siteName;
-                              } else if (currentTime >= 20 && currentTime < 24 && gameIndex == 6) {
-                                console.log("Time is between 20:00 and 24:00");
-                                window.location.href = "/game/game.html?siteName=" + siteName;
-                              } else {
-                                console.log("Invalid time");
-                                alert('Game is closed!')
-                              }
-
                               console.log(currentTime)
-                              // window.location.href = "/game/game.html?siteName=" + siteName;
+                              window.location.href = "/game/game.html?siteName=" + siteName;
                             }
                           </script>
 
@@ -446,14 +420,14 @@
                           <h4 color="#fff;" class="result1">
                             <center><big>DK Matka Results</big></center>
                           </h4>
-                          <div class="csaw"><a href="results.html">JOKER DAY RESULTS</a></div>
-                          <div class="csaw"><a href="results.html"> BANGAL DAY RESULTS</a></div>
-                          <div class="csawn"><a href="results.html">DHANRAJ DAY RESULTS</a>
+                          <div class="csaw"><a href="results.html">GAZIYABAAD RESULTS</a></div>
+                          <div class="csaw"><a href="results.html">DESAWAR RESULTS</a></div>
+                          <div class="csawn"><a href="results.html">GALI RESULTS</a>
                           </div>
-                          <div class="csaw"><a href="results.html">DHANLAXMI DAY RESULTS</a>
+                          <div class="csaw"><a href="results.html">FARIDABAD RESULTS</a>
                           </div>
-                          <div class="csawn"><a href="results.html">DHAN KUBER DAY RESULTS</a></div>
-                          <div class="csawn"><a href="results.html">MUMBAI WORLI DAY RESULTS</a></div>
+                          <div class="csawn"><a href="results.html">GOLDSTAR RESULTS</a></div>
+                          <div class="csawn"><a href="results.html">GHAZIABAD DIN RESULTS</a></div>
 
                           <div class="result1">
                             <center>12 August 2024, 06:59:24pm</center>

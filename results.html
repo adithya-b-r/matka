@@ -52,12 +52,12 @@
       <thead>
         <tr>
           <th>Date</th>
-          <th>JOKER DAY</th>
-          <th>BANGAL DAY</th>
-          <th>DHANRAJ DAY</th>
-          <th>DHANLAXMI DAY</th>
-          <th>DHAN KUBER DAY</th>
-          <th>MUMBAI WORLI DAY</th>
+          <th>GAZIYABAAD</th>
+          <th>DESAWAR</th>
+          <th>GALI</th>
+          <th>FARIDABAD</th>
+          <th>GOLDSTAR</th>
+          <th>GHAZIABAD DIN</th>
         </tr>
       </thead>
       <tbody>
@@ -81,12 +81,12 @@
         for (const [date, games] of Object.entries(results)) {
           const row = document.createElement('tr');
           row.innerHTML = `<td>${date.replaceAll('_','/')}</td>` +
-            `<td>${games['JOKER DAY']}</td>` +
-            `<td>${games['BANGAL DAY']}</td>` +
-            `<td>${games['DHANRAJ DAY']}</td>` +
-            `<td>${games['DHANLAXMI DAY']}</td>` +
-            `<td>${games['DHAN KUBER DAY']}</td>` +
-            `<td>${games['MUMBAI WORLI DAY']}</td>`;
+            `<td>${games['GAZIYABAAD']}</td>` +
+            `<td>${games['DESAWAR']}</td>` +
+            `<td>${games['GALI']}</td>` +
+            `<td>${games['FARIDABAD']}</td>` +
+            `<td>${games['GOLDSTAR']}</td>` +
+            `<td>${games['GHAZIABAD DIN']}</td>`;
           tableBody.appendChild(row);
         }
       } catch (error) {
