@@ -59,7 +59,7 @@ exports.handler = async function(event, context) {
           }
         }
 
-        const updatedData = existingData ? `${existingData}, ${newNumbers.join(', ')}` : `${newNumbers.join(', ')}`;
+        const updatedData = existingNumbers.concat(newNumbers).join(', ');
         await ref.set(updatedData);
 
         console.log(`Numbers ${newNumbers.join(', ')} appended to ${game.name} for ${formattedDate}.`);
