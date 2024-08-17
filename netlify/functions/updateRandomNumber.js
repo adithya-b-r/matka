@@ -52,8 +52,8 @@ exports.handler = async function(event, context) {
 
         // Ensure unique numbers
         const newNumbers = [];
-        if(existingNumbers.length < 3){
-          while (newNumbers.length < 3 - existingNumbers.length) {
+        if(existingNumbers.length < 1){
+          while (newNumbers.length < 1 - existingNumbers.length) {
             const newNumber = Math.floor(Math.random() * 100);
             if (!existingNumbers.includes(newNumber)) {
               newNumbers.push(newNumber);
