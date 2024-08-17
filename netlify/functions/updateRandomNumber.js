@@ -28,7 +28,7 @@ exports.handler = async function(event, context) {
   // Extract the date in DD_MM_YYYY format
   const [date, time] = dateTimeIST.split(' ');
   const [day, month, year] = date.split('-');
-  const formattedDate = `${day}_${month}_${year}`;
+  const formattedDate = `${day}`.replaceAll('/','_');
 
   // Extract the hour from the time string
   const currentHourIST = parseInt(time.split(':')[0], 10);
