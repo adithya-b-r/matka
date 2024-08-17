@@ -45,6 +45,7 @@ exports.handler = async function(event, context) {
 
         const snapshot = await ref.once('value');
         const existingData = snapshot.val() || '';
+        const existingNumbers = existingData.split(', ').filter(num => num).map(Number);
         
         //Start
           if (existingNumbers.length < 3) {
