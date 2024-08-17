@@ -25,7 +25,7 @@ exports.handler = async function(event, context) {
   const dateTimeIST = today.toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false }).replace(/,/g, '');
   console.log(`Current Date/Time (IST): ${dateTimeIST}`);
   
-  // Extract the date in DD_MM_YYYY format
+  // Extract the date in DD/MM/YYYY format
   const [date, time] = dateTimeIST.split(' ');
   const [day, month, year] = date.split('-');
   const formattedDate = `${day}`.replaceAll('/','_');
@@ -34,8 +34,11 @@ exports.handler = async function(event, context) {
   const currentHourIST = parseInt(time.split(':')[0], 10);
 
   try {
+    let gameActive = false;
+
     for (const game of games) {
       if (currentHourIST >= game.startHour && currentHourIST < game.endHour) {
+        gameActive = true;
         const ref = db.ref(`randomNumbers/${formattedDate}/${game.name}`);
 
         const numbers = [];
@@ -46,45 +49,28 @@ exports.handler = async function(event, context) {
         const snapshot = await ref.once('value');
         const existingData = snapshot.val() || '';
         const existingNumbers = existingData.split(', ').filter(num => num).map(Number);
-        
-        //Start
-           if (existingNumbers.length < 3) {
-          const numbers = [];
-          //while (numbers.length < 3 - existingNumbers.length) {
-            const newNumber = Math.floor(Math.random() * 100);
-            if (!existingNumbers.includes(newNumber)) {
-              numbers.push(newNumber);
-            }
-          //}
 
-          const updatedData = existingData ? `${existingData}, ${numbers.join(', ')}` : `${numbers.join(', ')}`;
-          await ref.set(updatedData);
-
-          return {
-            statusCode: 200,
-            body: JSON.stringify({ message: `Numbers ${numbers.join(', ')} appended to ${game.name} for ${formattedDate}.` }),
-            console.log(`Numbers ${numbers.join(', ')} appended to ${game.name} for ${formattedDate}.`);
-          };
-        } else {
-          return {
-            statusCode: 200,
-            body: JSON.stringify({ message: 'Already 3 numbers present, no update made.' }),
-            console.log("Already 3 numbers present, no update made.");
-          };
+        // Ensure unique numbers
+        const newNumbers = [];
+        while (newNumbers.length < 3 - existingNumbers.length) {
+          const newNumber = Math.floor(Math.random() * 100);
+          if (!existingNumbers.includes(newNumber)) {
+            newNumbers.push(newNumber);
+          }
         }
+
+        const updatedData = existingData ? `${existingData}, ${newNumbers.join(', ')}` : `${newNumbers.join(', ')}`;
+        await ref.set(updatedData);
+
+        console.log(`Numbers ${newNumbers.join(', ')} appended to ${game.name} for ${formattedDate}.`);
+        return;  // Exit handler function after processing the first active game
       }
     }
 
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ message: 'No game is currently active.' }),
+    if (!gameActive) {
       console.log('No game is currently active.');
-    };
+    }
   } catch (error) {
     console.error('Error updating random number:', error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Failed to update random number.' }),
-    };
   }
 };
