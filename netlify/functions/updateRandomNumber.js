@@ -11,12 +11,12 @@ const db = admin.database();
 
 // Define the games and their time slots
 const games = [
-  { name: "JOKER DAY", startHour: 0, endHour: 4 },
-  { name: "BANGAL DAY", startHour: 4, endHour: 8 },
-  { name: "DHANRAJ DAY", startHour: 8, endHour: 12 },
-  { name: "DHANLAXMI DAY", startHour: 12, endHour: 16 },
-  { name: "DHAN KUBER DAY", startHour: 16, endHour: 20 },
-  { name: "MUMBAI WORLI DAY", startHour: 20, endHour: 24 },
+  { name: "GAZIYABAAD", startHour: 0, endHour: 4 },
+  { name: "DESAWAR", startHour: 4, endHour: 8 },
+  { name: "GALI", startHour: 8, endHour: 12 },
+  { name: "FARIDABAD", startHour: 12, endHour: 16 },
+  { name: "GOLDSTAR", startHour: 16, endHour: 20 },
+  { name: "GHAZIABAD DIN", startHour: 20, endHour: 24 },
 ];
 
 exports.handler = async function(event, context) {
