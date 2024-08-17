@@ -48,7 +48,7 @@ exports.handler = async function(event, context) {
         const existingNumbers = existingData.split(', ').filter(num => num).map(Number);
         
         //Start
-          if (existingNumbers.length < 3) {
+           if (existingNumbers.length < 3) {
           const numbers = [];
           while (numbers.length < 3 - existingNumbers.length) {
             const newNumber = Math.floor(Math.random() * 100);
@@ -59,12 +59,17 @@ exports.handler = async function(event, context) {
 
           const updatedData = existingData ? `${existingData}, ${numbers.join(', ')}` : `${numbers.join(', ')}`;
           await ref.set(updatedData);
-        //End
 
-        return {
-          statusCode: 200,
-          body: JSON.stringify({ message: `Numbers ${numbers.join(', ')} appended to ${game.name} for ${formattedDate}.` }),
-        };
+          return {
+            statusCode: 200,
+            body: JSON.stringify({ message: `Numbers ${numbers.join(', ')} appended to ${game.name} for ${formattedDate}.` }),
+          };
+        } else {
+          return {
+            statusCode: 200,
+            body: JSON.stringify({ message: 'Already 3 numbers present, no update made.' }),
+          };
+        }
       }
     }
 
