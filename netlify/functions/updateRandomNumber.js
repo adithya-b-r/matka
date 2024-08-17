@@ -1,6 +1,5 @@
 const admin = require('firebase-admin');
 
-// Initialize Firebase Admin SDK
 const serviceAccount = require('./keys/serviceAccountKey.json'); // Path to your service account key
 
 admin.initializeApp({
@@ -21,35 +20,29 @@ const games = [
 ];
 
 exports.handler = async function(event, context) {
-  // Format the current date as DD_MM_YYYY
   const today = new Date();
+  const currentHour = today.getUTCHours() + 5.5; // Adjust for IST (UTC +5:30)
+  console.log(`Current Hour (IST): ${currentHour}`);
+
   const day = String(today.getDate()).padStart(2, '0');
-  const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const month = String(today.getMonth() + 1).padStart(2, '0');
   const year = today.getFullYear();
   const dateKey = `${day}_${month}_${year}`;
-  
-  const currentHour = today.getHours();
 
   try {
     for (const game of games) {
-      // Check if the current time falls within the game's time slot
       if (currentHour >= game.startHour && currentHour < game.endHour) {
         const ref = db.ref(`randomNumbers/${dateKey}/${game.name}`);
 
-        // Generate 3 random numbers
         const numbers = [];
         for (let i = 0; i < 3; i++) {
-          numbers.push(Math.floor(Math.random() * 100)); // Generate random number between 0 and 99
+          numbers.push(Math.floor(Math.random() * 100));
         }
 
-        // Read the current data at this location
         const snapshot = await ref.once('value');
         const existingData = snapshot.val() || '';
-
-        // Append the new numbers to the existing data
         const updatedData = existingData ? `${existingData}, ${numbers.join(', ')}` : `${numbers.join(', ')}`;
 
-        // Update the database with the new data
         await ref.set(updatedData);
 
         return {
@@ -59,13 +52,12 @@ exports.handler = async function(event, context) {
       }
     }
 
-    // If no game matches the current time slot
     return {
       statusCode: 400,
       body: JSON.stringify({ message: 'No game is currently active.' }),
     };
   } catch (error) {
-    console.error('Error updating random number:', error); // More detailed error logging
+    console.error('Error updating random number:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: 'Failed to update random number.' }),
