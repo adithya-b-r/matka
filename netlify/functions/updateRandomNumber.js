@@ -26,9 +26,12 @@ exports.handler = async function(event, context) {
   console.log(`Current Date/Time (IST): ${dateTimeIST}`);
   
   // Extract the date in DD_MM_YYYY format
-  const formattedDate = `${String(new Date().getDate()).padStart(2, '0')}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${new Date().getFullYear()}`;
-  
-  const currentHourIST = parseInt(time.split(':')[0], 10); // Get the hour in 24-hour format
+  const [date, time] = dateTimeIST.split(' ');
+  const [day, month, year] = date.split('-');
+  const formattedDate = `${day}_${month}_${year}`;
+
+  // Extract the hour from the time string
+  const currentHourIST = parseInt(time.split(':')[0], 10);
 
   try {
     for (const game of games) {
@@ -48,7 +51,7 @@ exports.handler = async function(event, context) {
 
         return {
           statusCode: 200,
-          body: JSON.stringify({ message: `Numbers ${numbers.join(', ')} appended to ${game.name} for ${dateKey}.` }),
+          body: JSON.stringify({ message: `Numbers ${numbers.join(', ')} appended to ${game.name} for ${formattedDate}.` }),
         };
       }
     }
