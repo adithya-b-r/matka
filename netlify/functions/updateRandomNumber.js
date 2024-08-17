@@ -59,15 +59,17 @@ exports.handler = async function(event, context) {
               newNumbers.push(newNumber);
               console.log("Generating new Number : "+newNumber);
             }
-          }
+          } 
 
-          
-        }
-
-        const updatedData = existingNumbers.concat(newNumbers).join(', ');
-        await ref.set(updatedData);
+          const updatedData = existingNumbers.concat(newNumbers).join(', ');
+          await ref.set(updatedData);
 
         console.log(`Numbers ${newNumbers.join(', ')} appended to ${game.name} for ${formattedDate}.`);
+        }else{
+          console.log("Already "+existingNumbers.length+" exists.");
+        }
+
+        
         return;  // Exit handler function after processing the first active game
       }
     }
