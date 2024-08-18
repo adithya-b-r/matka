@@ -80,7 +80,9 @@
 
         for (const [date, games] of Object.entries(results)) {
           const row = document.createElement('tr');
-          row.innerHTML = `<td>${date.replaceAll('_','/')}</td>` +
+          var newDate = date.split('-');
+          var newDate = newDate[2] + '/' + newDate[1] + '/' + newDate[0];
+          row.innerHTML = `<td>${newDate}</td>` +
             `<td>${games['GAZIYABAAD']}</td>` +
             `<td>${games['DESAWAR']}</td>` +
             `<td>${games['GALI']}</td>` +

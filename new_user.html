@@ -339,36 +339,48 @@
 
 
       <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-        import { getAuth, signInWithCredential, RecaptchaVerifier } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
-        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js';
+        import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js';
+        import { getDatabase, ref, set } from 'https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js';
+    
         // Your web app's Firebase configuration
         const firebaseConfig = {
           apiKey: "AIzaSyA-5GSJvxnDk0XDmG62IXc8QIR-Kb4QiCo",
           authDomain: "matka-78bf1.firebaseapp.com",
+          databaseURL: "https://matka-78bf1-default-rtdb.europe-west1.firebasedatabase.app",
           projectId: "matka-78bf1",
           storageBucket: "matka-78bf1.appspot.com",
           messagingSenderId: "979382842776",
-          appId: "https://matka-78bf1-default-rtdb.europe-west1.firebasedatabase.app/"  // Replace with the actual app ID from Firebase Console
+          appId: "1:979382842776:web:6c7d2e67f1030bc76b27ed" // Ensure this is the correct App ID
         };
-
+    
         // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+    
         document.getElementById('signUpForm').addEventListener('submit', async (e) => {
           e.preventDefault();
-
+    
           const phoneNumber = document.getElementById('phoneNumber').value;
           const password = document.getElementById('password').value;
-
+    
           try {
             const email = `${phoneNumber}@example.com`;
-
-            await auth.createUserWithEmailAndPassword(email, password);
-
+    
+            // Create user with email and password
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+    
+            // Create a new entry in the database
+            const userRef = ref(db, 'users/' + phoneNumber);
+            await set(userRef, {
+              history: "",
+              balance: "0"
+            });
+    
             alert('User created successfully');
+            // Optionally redirect to another page
             window.location.href = '/index.html';
           } catch (error) {
             console.error('Error creating user:', error);

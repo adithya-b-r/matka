@@ -1,7 +1,7 @@
 // Import Firebase SDKs
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js';
-import { getDatabase, ref, get, child } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
+import { getDatabase, ref, set, get, child, update } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -24,6 +24,7 @@ export function signUpUser(phoneNumber, password) {
   return createUserWithEmailAndPassword(auth, phoneNumber + "@example.com", password)
     .then((userCredential) => {
       console.log('User signed up successfully:', userCredential.user);
+      createUserDatabaseEntry(phoneNumber); // Create database entry for new user
       return userCredential.user;
     })
     .catch((error) => {
@@ -71,6 +72,95 @@ export function logoutUser() {
     .catch((error) => {
       console.error('Error signing out:', error);
     });
+}
+
+// Function to create a new user entry in the database
+function createUserDatabaseEntry(phoneNumber) {
+  const userRef = ref(db, 'users/' + phoneNumber);
+  set(userRef, {
+    history: [],
+    balance: 0,
+    wallet: 0 // Initialize wallet with 0 balance
+  }).then(() => {
+    console.log('User database entry created successfully.');
+  }).catch((error) => {
+    console.error('Error creating user database entry:', error);
+  });
+}
+
+// Function to update user balance
+export function updateUserBalance(phoneNumber, newBalance) {
+  const userRef = ref(db, 'users/' + phoneNumber);
+  update(userRef, {
+    balance: newBalance
+  }).then(() => {
+    console.log('User balance updated successfully.');
+  }).catch((error) => {
+    console.error('Error updating user balance:', error);
+  });
+}
+
+// Function to get user wallet balance
+export function getUserWalletBalance(phoneNumber) {
+  const walletRef = ref(db, 'users/' + phoneNumber + '/balance');
+  return get(walletRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log('Wallet balance fetched successfully:', snapshot.val());
+      const balance = snapshot.val();
+      return balance;
+    } else {
+      console.log('No wallet balance found.');
+      return 0; // Return 0 if no balance is found
+    }
+  }).catch((error) => {
+    console.error('Error fetching wallet balance:', error);
+    throw error;
+  });
+}
+
+// Add this to session.js if not already there
+// export function displayWalletBalance(phoneNumber) {
+//   const userRef = ref(db, 'users/' + phoneNumber + '/balance');
+//   get(userRef).then((snapshot) => {
+//       if (snapshot.exists()) {
+//           const balance = snapshot.val();
+//           document.getElementById('walletBalance').innerText = balance;
+//           document.getElementById('PointsAdd').value = balance; // update the hidden input value
+//       } else {
+//           console.log('No balance found, setting to 0.');
+//           updateUserBalance(phoneNumber, 0); // Initialize balance if not found
+//           document.getElementById('walletBalance').innerText = '0';
+//       }
+//   }).catch((error) => {
+//       console.error('Error fetching wallet balance:', error);
+//   });
+// }
+
+// Function to update user wallet balance
+export function updateUserWalletBalance(phoneNumber, newBalance) {
+  const walletRef = ref(db, 'users/' + phoneNumber + '/wallet');
+  return set(walletRef, newBalance).then(() => {
+    console.log('Wallet balance updated successfully.');
+  }).catch((error) => {
+    console.error('Error updating wallet balance:', error);
+    throw error;
+  });
+}
+
+// Function to add to user history
+export function addToUserHistory(phoneNumber, entry) {
+  const userRef = ref(db, 'users/' + phoneNumber + '/history');
+  get(userRef).then((snapshot) => {
+    const history = snapshot.exists() ? snapshot.val() : [];
+    history.push(entry);
+    set(userRef, history).then(() => {
+      console.log('User history updated successfully.');
+    }).catch((error) => {
+      console.error('Error updating user history:', error);
+    });
+  }).catch((error) => {
+    console.error('Error fetching user history:', error);
+  });
 }
 
 // Function to get game results
