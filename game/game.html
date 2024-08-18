@@ -424,9 +424,32 @@
     <div class="result2"><a href="/index.html">
         <font size="5">Dk Matka</font><br>
       </a></div>
-    <div class="result3"><img src="/icon/wallet.png" style="height:30px; width:30px;">
+    <div class="result3">
+      <img src="/icon/wallet.png" style="height:30px; width:30px;">
       <input type="hidden" id="PointsAdd" value="0"> Rs.0
-    </div>
+  </div>
+  <script type="module">
+      import { getUserWalletBalance, CheckSession } from '/session.js';
+  
+      CheckSession().then(session => {
+          if (session.loggedIn) {
+              getUserWalletBalance(session.userPhone)
+                  .then(walletBalance => {
+                      console.log(walletBalance); // This logs the wallet balance
+                      // Update the wallet balance in the DOM
+                      const pointsAddInput = document.getElementById('PointsAdd');
+                      pointsAddInput.value = walletBalance;
+                      pointsAddInput.nextSibling.textContent = ` Rs.${walletBalance}`;
+                  })
+                  .catch(error => {
+                      console.error('Error fetching wallet balance:', error);
+                  });
+          } else {
+              console.log('User not logged in');
+              // Handle redirection or alerts here
+          }
+      });
+  </script>
   </div>
   <div>
     <button onclick="myFunction()" class="button">Withdraw Money</button>
@@ -470,82 +493,7 @@
   document.getElementById("todayDate").innerText = formattedDate;
 </script>
 
-      <script>
-        var countDownDateOpen = 1723706999 * 1000;
-        var nowopen = 1723706474 * 1000;
-
-        // Update the count down every 1 second
-        var xx = setInterval(function () {
-          nowopen = nowopen + 1000;
-          // Find the distance between now an the count down date
-          var distanceopen = countDownDateOpen - nowopen;
-          // Time calculations for days, hours, minutes and seconds
-          var days = Math.floor(distanceopen / (1000 * 60 * 60 * 24));
-          var hours = Math.floor((distanceopen % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          var minutes = Math.floor((distanceopen % (1000 * 60 * 60)) / (1000 * 60));
-          var seconds = Math.floor((distanceopen % (1000 * 60)) / 1000);
-
-          // If the count down is over, write some text 
-          if (distanceopen < 0) {
-            clearInterval(xx);
-            $(document).ready(function () {
-              //Check if the current URL contains '#'
-              if (document.URL.indexOf("#") == -1) {
-                // Set the URL to whatever it was plus "#".
-                url = document.URL + "#";
-                location = "#";
-
-                //Reload the page
-                location.reload(true);
-              }
-            });
-
-          }
-
-        }, 1000);
-
-      </script>
-
-      <script>
-        var countDownDate = 1723710599 * 1000;
-        var now = 1723706474 * 1000;
-
-        // Update the count down every 1 second
-        var x = setInterval(function () {
-          now = now + 1000;
-          // Find the distance between now an the count down date
-          var distance = countDownDate - now;
-          // Time calculations for days, hours, minutes and seconds
-          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-          // Output the result in an element with id="demo"
-          document.getElementById("demo").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
-          // If the count down is over, write some text 
-          if (distance < 4000) {
-            clearInterval(x);
-            if (distance > 1000) {
-              $(document).ready(function () {
-                //Check if the current URL contains '#'
-                if (document.URL.indexOf("#") == -1) {
-                  // Set the URL to whatever it was plus "#".
-                  url = document.URL + "#";
-                  location = "#";
-
-                  //Reload the page
-                  location.reload(true);
-                }
-              });
-            }
-            document.getElementById("demo").innerHTML = "Now Your Game Will Book For Next Date";
-          }
-
-        }, 1000);
-
-      </script>
-
-      Time Left : <span id="demo"></span>
+      
     </p>
   </div>
 
@@ -826,12 +774,7 @@
   </div>
   </div> <br>
 
-
-
-
-
-
-  <form method="post" action="/aplay.html?pid=104">
+  <!-- <form method="post" action=""> -->
     <input type="hidden" name="PointsAdd" id="PointsAdd" value="0" />
     <table style="background:#fff; text-align: center;" cellspacing="0" border="1" id="customFields" align="center"
       width="100%">
@@ -852,7 +795,7 @@
     <br>
     <input id='book-game-btn' type="submit" value="Book Game" name="sub" class="submit"
       style="background:#1F6186;padding:8px;border:1px solid #1F6186;border-radius:15px;width:250px;font-size:18px;color:#fff;margin-top:7px;font-weight:bold;" />
-  </form>
+  <!-- </form> -->
 
   <script type="text/javascript">
     window.onbeforeunload = function () {
@@ -868,10 +811,6 @@
 
   </div>
 
-  <div class="result1">
-    <center>
-      15 August 2024, 12:51:14pm</center>
-  </div>
   <table width="100%" border="1" cellpadding="10px" cellspacing="0"
     style="text-align:center; background-color:#fc9; color:#000; font-weight: 800; margin-top:5px; margin-bottom:5px;">
     <tr>
@@ -1010,78 +949,6 @@
       </a>
     </div>
   </div>
-
-
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      console.log("Will the service worker register?");
-      navigator.serviceWorker.register('service-worker.js')
-        .then(function (reg) {
-          console.log("Yes, it did.");
-        }).catch(function (err) {
-          console.log("No it didn't. This happened:", err)
-        });
-    }
-  </script>
-
-  <script>
-    document.addEventListener('contextmenu', event => event.preventDefault());
-    document.onkeydown = function (e) {
-      if (event.keyCode == 123) {
-        return false;
-      }
-      if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-        return false;
-      }
-      if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-        return false;
-      }
-      if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
-      }
-    } 
-  </script>
-
-  <script>
-    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-
-        const deferredPrompt = e;
-        const installButton = document.querySelector(".app-button");
-        installButton.style.display = 'block';
-
-
-        installButton.addEventListener('click', () => {
-
-          deferredPrompt.prompt();
-
-          deferredPrompt.userChoice.then(choiceResult => {
-            if (choiceResult.outcome === 'accepted') {
-              console.log('App installed');
-            } else {
-              console.log('App installation declined');
-            }
-
-            installButton.style.display = 'none';
-          });
-        });
-
-      });
-    }
-
-
-    if ('serviceWorker' in navigator) {
-      console.log("Will the service worker register?");
-      navigator.serviceWorker.register('service-worker.js')
-        .then(function (reg) {
-          console.log("Yes, it did.");
-        }).catch(function (err) {
-          console.log("No it didn't. This happened:", err)
-        });
-    }
-  </script>
 </body>
 <script src="script.js"></script>
 </html>
