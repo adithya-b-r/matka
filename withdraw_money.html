@@ -264,9 +264,32 @@
     <div class="result2"><a href="#">
         <font size="5">Dk Matka</font><br>
       </a></div>
-    <div class="result3"><img src="/icon/wallet.png" style="height:30px; width:30px;">
-      <input type="hidden" id="PointsAdd" value="0"> Rs.0
+      <div class="result3">
+        <img src="/icon/wallet.png" style="height:30px; width:30px;">
+        <input type="hidden" id="PointsAdd" value="0"> Rs.0
     </div>
+    <script type="module">
+        import { getUserWalletBalance, CheckSession } from './session.js';
+    
+        CheckSession().then(session => {
+            if (session.loggedIn) {
+                getUserWalletBalance(session.userPhone)
+                    .then(walletBalance => {
+                        console.log(walletBalance); // This logs the wallet balance
+                        // Update the wallet balance in the DOM
+                        const pointsAddInput = document.getElementById('PointsAdd');
+                        pointsAddInput.value = walletBalance;
+                        pointsAddInput.nextSibling.textContent = ` Rs.${walletBalance}`;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching wallet balance:', error);
+                    });
+            } else {
+                console.log('User not logged in');
+                // Handle redirection or alerts here
+            }
+        });
+    </script>
   </div>
   <div>
     <button onclick="myFunction()" class="button">Withdraw Money</button>
@@ -338,7 +361,7 @@
       <td>Jodi </td>
       <td>100 Ka 9000 </td>
     </tr>
-    <tr>
+    <!-- <tr>
       <td>Sp Pana</td>
       <td>100 Ka 15000 </td>
     </tr>
@@ -349,7 +372,7 @@
     <tr>
       <td>Tp Pana</td>
       <td>100 Ka 45000 </td>
-    </tr>
+    </tr> -->
     <tr>
     </tr>
   </table>
@@ -467,73 +490,7 @@
 
 
   <script>
-    if ('serviceWorker' in navigator) {
-      console.log("Will the service worker register?");
-      navigator.serviceWorker.register('service-worker.js')
-        .then(function (reg) {
-          console.log("Yes, it did.");
-        }).catch(function (err) {
-          console.log("No it didn't. This happened:", err)
-        });
-    }
-  </script>
-
-  <script>
-    document.addEventListener('contextmenu', event => event.preventDefault());
-    document.onkeydown = function (e) {
-      if (event.keyCode == 123) {
-        return false;
-      }
-      if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-        return false;
-      }
-      if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-        return false;
-      }
-      if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
-      }
-    } 
-  </script>
-
-  <script>
-    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-
-        const deferredPrompt = e;
-        const installButton = document.querySelector(".app-button");
-        installButton.style.display = 'block';
-
-
-        installButton.addEventListener('click', () => {
-
-          deferredPrompt.prompt();
-
-          deferredPrompt.userChoice.then(choiceResult => {
-            if (choiceResult.outcome === 'accepted') {
-              console.log('App installed');
-            } else {
-              console.log('App installation declined');
-            }
-
-            installButton.style.display = 'none';
-          });
-        });
-
-      });
-    }
-
-
-    if ('serviceWorker' in navigator) {
-      console.log("Will the service worker register?");
-      navigator.serviceWorker.register('service-worker.js')
-        .then(function (reg) {
-          console.log("Yes, it did.");
-        }).catch(function (err) {
-          console.log("No it didn't. This happened:", err)
-        });
-    }
+    
   </script>
   <script src="session.js" type="module"></script>
 </body>

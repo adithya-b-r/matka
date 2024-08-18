@@ -234,9 +234,32 @@
           <div class="result2"><a href="#">
               <font size="5">Dk Matka</font><br>
             </a></div>
-          <div class="result3"><img src="/icon/wallet.png" style="height:30px; width:30px;">
-            <input type="hidden" id="PointsAdd" value="0"> Rs.0
+            <div class="result3">
+              <img src="/icon/wallet.png" style="height:30px; width:30px;">
+              <input type="hidden" id="PointsAdd" value="0"> Rs.0
           </div>
+          <script type="module">
+              import { getUserWalletBalance, CheckSession } from './session.js';
+          
+              CheckSession().then(session => {
+                  if (session.loggedIn) {
+                      getUserWalletBalance(session.userPhone)
+                          .then(walletBalance => {
+                              console.log(walletBalance); // This logs the wallet balance
+                              // Update the wallet balance in the DOM
+                              const pointsAddInput = document.getElementById('PointsAdd');
+                              pointsAddInput.value = walletBalance;
+                              pointsAddInput.nextSibling.textContent = ` Rs.${walletBalance}`;
+                          })
+                          .catch(error => {
+                              console.error('Error fetching wallet balance:', error);
+                          });
+                  } else {
+                      console.log('User not logged in');
+                      // Handle redirection or alerts here
+                  }
+              });
+          </script>
         </div>
         <div>
           <button onclick="myFunction()" class="button">Withdraw Money</button>
