@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,4 +23,30 @@
   </script>
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <script type="module">
+    import { loginUser, CheckSession } from './session.js';
+    CheckSession().then(({ loggedIn, userPhone }) => {
+      if (loggedIn) {
+        console.log('User is logged in:', userPhone);
+      } else {
+        console.log('No user is logged in');
+      }
+    });
+  </script>
+</body>
+
+>>>>>>> 1229593a5115387d1053ff8992d439ddafbcca87
 </html>

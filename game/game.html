@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 
@@ -951,4 +952,959 @@
   </div>
 </body>
 <script src="script.js"></script>
+=======
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="/index.html" />
+  <link rel="alternate" href="/index.html" hreflang="en-in" />
+  <meta name="robots" content="index,follow">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <style>
+    body {
+      color: #fff;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      margin: 0;
+    }
+
+    input[type],
+    select {
+      width: 50%;
+      /* padding: 12px 20px; */
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type=submit] {
+      width: auto;
+      background-color: #4CAF50;
+      color: white;
+      padding: 7px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+
+    td {
+      color: #000;
+    }
+
+    .searchInput {
+      background: #fff;
+      border-radius: 5px;
+      position: relative;
+      border: 1px solid #000;
+      box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.12);
+    }
+
+    .searchInput input {
+      width: 100%;
+      outline: none;
+      border: none;
+      border-radius: 5px;
+      padding: 0px 12px 0px 12px;
+      font-size: 16px;
+      /* box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1); */
+    }
+
+    .searchInput.active input {
+      border-radius: 5px 5px 0 0;
+    }
+
+    .searchInput .resultBox {
+      padding: 0;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      z-index: 10;
+      right: 0;
+      left: 0;
+      max-height: 280px;
+      overflow-y: auto;
+      background-color: rgb(238, 197, 30);
+      /* width: 100%; */
+      color: #000;
+    }
+
+    .searchInput.active .resultBox {
+      padding: 10px 8px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .resultBox li {
+      list-style: none;
+      padding: 8px 6px;
+      display: none;
+      text-align: start;
+      width: 100%;
+      cursor: default;
+      border-radius: 3px;
+    }
+
+    .searchInput.active .resultBox li {
+      display: block;
+    }
+
+    .resultBox li:hover {
+      background: #efefef;
+    }
+
+    .radio-item {
+      display: flex;
+      position: relative;
+    }
+
+    input[type="radio"]:checked:before {
+      content: "";
+      position: absolute;
+      height: 11px;
+      width: 11px;
+      border-radius: 20px;
+      background: #000;
+      left: -25.65px;
+      top: -5.5px;
+      z-index: 1;
+      cursor: pointer;
+    }
+
+    input[type="radio"]:checked:after {
+      content: "";
+      position: absolute;
+      height: 16px;
+      width: 16px;
+      background: #fff;
+      transition: linear 0.2s;
+      cursor: pointer;
+    }
+
+    input[type="radio"]:after {
+      content: "";
+      position: absolute;
+      height: 16px;
+      width: 16px;
+      top: -10.5px;
+      left: -30px;
+      border-radius: 20px;
+      border: 2px solid #000;
+      transition: linear 0.2s;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      position: relative;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: linear 0.8s;
+      height: 0;
+      width: 0;
+      margin: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    label {
+      font-weight: 300;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* border: 1px solid red; */
+      align-items: center;
+      flex: 1;
+      box-sizing: border-box;
+      display: flex;
+      padding: 4px 0px 0px 30px;
+      font-weight: 500;
+      color: #191919;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .pana-content {
+      display: inline-block;
+      transform: translate(-19px, 10px);
+    }
+
+    .section-2 {
+      display: none;
+    }
+
+    .section-3 {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <style>
+    .button {
+      border: 2px solid #FF5733;
+      background-color: #FF5733;
+      color: #fff;
+      padding: 4px 9px;
+      border-radius: 8px 0;
+      box-shadow: 0px 0px 1px #000000d6;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all .3s;
+      margin-top: 5px;
+    }
+
+    @keyframes glowing {
+      0% {
+        background-color: #FF5733;
+        box-shadow: 0 0 5px #2ba805;
+      }
+
+      50% {
+        background-color: #FF5733;
+        box-shadow: 0 0 20px #49e819;
+      }
+
+      100% {
+        background-color: #FF5733;
+        box-shadow: 0 0 5px #2ba805;
+      }
+    }
+
+    .button {
+      animation: glowing 1300ms infinite;
+    }
+
+    .result1 {
+      background-color: #232F3E;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 5px;
+      text-align: left;
+    }
+
+    .result3 {
+      background-color: #232F3E;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 5px;
+      text-align: right;
+    }
+
+    .result2 {
+      margin: 0px;
+      position: absolute;
+      top: 5px;
+      left: 50px;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: left;
+    }
+
+    .result3 {
+      margin: 0px;
+      position: absolute;
+      top: 10px;
+      right: 1px;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: right;
+    }
+
+    .result2 a {
+      color: #fff;
+    }
+
+
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      padding-top: 60px;
+    }
+
+    .sidenav a {
+      padding: 8px 8px 8px 8px;
+      text-decoration: none;
+      font-size: 17px;
+      color: #ffff;
+      display: block;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 0px;
+      font-size: 36px;
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidenav {
+        padding-top: 0px;
+      }
+
+      .sidenav a {
+        font-size: 18px;
+      }
+    }
+
+
+
+    @media screen and (min-width: 1200px) {
+      body {
+        margin-left: 300px;
+        margin-right: 300px;
+      }
+
+      .result1 {
+        background-color: #232F3E;
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 5px;
+        text-align: left;
+      }
+
+      .result2 {
+        margin: 0px;
+        position: absolute;
+        top: 5px;
+        left: 350px;
+        text-decoration: none;
+        border-radius: 5px;
+        text-align: left;
+      }
+
+      .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 300px;
+        background-color: #111;
+        overflow-x: hidden;
+        padding-top: 60px;
+      }
+
+    }
+
+    .open {
+      color: blue;
+      font-size: 15px;
+    }
+
+    .close {
+      color: red;
+      font-size: 15px;
+
+    }
+  </style>
+
+  <div id="mySidenav" class="sidenav">
+
+  </div>
+
+  <script type="module">
+    import { CheckSession } from '/session.js';
+
+    export function manipulateNav() {
+      CheckSession().then(({ loggedIn, userName, userPhone }) => {
+        const sideNav = document.getElementById('mySidenav');
+
+        if (loggedIn) {
+          sideNav.innerHTML = `
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <b><img src="/icon/user.jpg" style="height:30px; width:30px;"><br><span id="userName">${userName}</span><br>${userPhone}</b>
+      <a href="/index.html" class="active">Home</a>
+      <a href="/user_profile.html">My Profile</a>
+      <a href="/user_transaction.html">My Transaction</a>
+      <a href="/user_wallet.html">Your Wallet</a>
+      <a href="/logout.html">Logout</a>
+    `;
+        } else {
+          sideNav.innerHTML = `
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="/index.html" class="active">Home</a>
+      <a href="/game_rate.html">Game Rates</a>
+      <a href="/how_to_play.html">How To Play</a>
+      <a href="/login.html">Login</a>
+      <a href="/new_user.html">Registration</a>
+    `;
+        }
+      }).catch(error => {
+        console.error('Error checking session:', error);
+      });
+    }
+
+    function fetchGameName() {
+        document.getElementById("gameName").innerText = new URLSearchParams(window.location.search).get('siteName');
+      }
+
+    // Call the function on page load
+    window.onload = function(){ 
+      manipulateNav();
+      fetchGameName();
+    };
+  </script>
+
+  <div class="result1"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    <div class="result2"><a href="/index.html">
+        <font size="5">Dk Matka</font><br>
+      </a></div>
+    <div class="result3">
+      <img src="/icon/wallet.png" style="height:30px; width:30px;">
+      <input type="hidden" id="PointsAdd" value="0"> Rs.0
+  </div>
+  <script type="module">
+      import { getUserWalletBalance, CheckSession } from '/session.js';
+  
+      CheckSession().then(session => {
+          if (session.loggedIn) {
+              getUserWalletBalance(session.userPhone)
+                  .then(walletBalance => {
+                      console.log(walletBalance); // This logs the wallet balance
+                      // Update the wallet balance in the DOM
+                      const pointsAddInput = document.getElementById('PointsAdd');
+                      pointsAddInput.value = walletBalance;
+                      pointsAddInput.nextSibling.textContent = ` Rs.${walletBalance}`;
+                  })
+                  .catch(error => {
+                      console.error('Error fetching wallet balance:', error);
+                  });
+          } else {
+              console.log('User not logged in');
+              // Handle redirection or alerts here
+          }
+      });
+  </script>
+  </div>
+  <div>
+    <button onclick="myFunction()" class="button">Withdraw Money</button>
+    <script>
+      function myFunction() {
+        alert("insufficient funds in Wallet. वॉलेट में पैसा कम है!");
+      }
+    </script>
+    <a href="/user_transaction.html"><button class="button">WalletHistory</button></a> <a
+      href="https://wa.me/+919993272011/?text=मुझे वॉलेट में पैसा डलवाना है। , I Want Add Money In Dk Matka Wallet No.8474636344"><button
+        class="button">Add Money</button></a></th>
+    <br><a href="/add_money_upi.html" class="pay"><button class="button">Add Money Via <img height="15px"
+          src="/icon/phonepe.svg"></img> <img height="15px" src="/icon/google-pay.svg"></img>
+        <img height="15px" src="/icon/paytm-upi.png"></img></button></a>
+  </div>
+
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+
+    }
+  </script>
+
+
+
+  <div
+    style="display:none; background:gold;color:#000;padding:10px 20px; margin-top:5px; border-radius:25px; text-decoration:none;"
+    class="app-button">Download Dk Matka App<br>Click Here</div>
+
+  <div style="background:#fc466b;color:#fff; border-radius: 6px; text-align:center;">
+    <title>Matka Game</title>
+    <p><span id="gameName"></span><br>
+      <span style='color:#fff;' id="todayDate">15-08-2024</span> <br>
+
+<script>
+  const formattedDate = `${String(new Date().getDate()).padStart(2, '0')}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${new Date().getFullYear()}`;
+  document.getElementById("todayDate").innerText = formattedDate;
+</script>
+
+      
+    </p>
+  </div>
+
+
+
+  <div style="background:#fff;margin-top:auto;">
+    <form method="post" autocomplete="off" id="product_frm1" class="id_100" style="text-align:center;">
+      <span style="color: #000;">Select game type : </span> <br>
+      <div style="padding: 8px 0 10px 0;display: flex; align-items: center; justify-content: space-around; ">
+        <!-- <div class="radio-item">
+          <label for="t-ank">
+            <input type="radio" checked id="t-ank" name="game-type" value="ank" />
+            <span class="pana-content" style="color: #000;">Ank </span>
+          </label>
+        </div> -->
+        <div class="radio-item">
+          <label for="t-jodi">
+            <input type="radio" id="t-jodi" name="game-type" value="jodi" />
+            <span class="pana-content" style="color: #000;">Jodi </span>
+          </label>
+        </div>
+        <!-- <div class="radio-item">
+          <label for="t-pana">
+            <input type="radio" id="t-pana" name="game-type" value="pana" />
+            <span class="pana-content" style="color: #000;">Pana </span>
+          </label>
+        </div> -->
+
+
+      </div>
+      <!-- ANK DATA START HERE -->
+      <div class="section-1">
+        <span style="color:green;">
+          <hr>Select For Ank:
+        </span><br>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+          <div class="searchInput" style="flex: 1.3;">
+            <input placeholder="Enter Digits" type="number" name="BidNo" id="BidNo" class="select_satta input-digits"
+              style='width: 100%;' onKeyPress="if(this.value.length==1) return false;"></input>
+            <div class="resultBox">
+              <!-- here list are inserted from javascript -->
+            </div>
+          </div>
+
+          <select name="BidType" id="BidType" class="select_satta"
+            style="padding:9px;border:1px solid #000;border-radius:5px;flex: 1;">
+            <option selected value="Open">Open</option>
+            <option value="Close">Close</option>
+
+          </select>
+
+
+          <select name="points" id="points" class="select_satta"
+            style="padding:9px;border:1px solid #000;border-radius:5px;flex: 1;">
+            <option value="" selected>Points</option>
+
+            <option value="100">100</option>
+
+            <option value="150">150</option>
+
+            <option value="200">200</option>
+
+            <option value="250">250</option>
+
+            <option value="300">300</option>
+
+            <option value="350">350</option>
+
+            <option value="400">400</option>
+
+            <option value="450">450</option>
+
+            <option value="500">500</option>
+
+            <option value="600">600</option>
+
+            <option value="700">700</option>
+
+            <option value="800">800</option>
+
+            <option value="900">900</option>
+
+            <option value="1000">1000</option>
+
+            <option value="1200">1200</option>
+
+            <option value="1500">1500</option>
+
+            <option value="2000">2000</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ANK DATA END HERE -->
+      <!-- JODI DATA START HERE -->
+      <div class="section-2">
+        <span style="color:green;">
+          <hr>Select For Jodi:
+        </span><br>
+        <div style="padding: 8px 0 10px 0;display: flex; align-items: center; justify-content: space-around; ">
+          <div class="radio-item">
+            <label for="Single Pana">
+              <input type="radio" checked id="Single Jodi" name="jodi" value="single-jodi" />
+              <span class="pana-content" style="color: #000;">Jodi </span>
+            </label>
+          </div>
+          <div class="radio-item">
+            <label for="Family Jodi">
+              <input type="radio" id="Family Jodi" name="jodi" value="family-jodi" />
+              <span class="pana-content" style="color: #000;">Family Jodi </span>
+            </label>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+          <div class="searchInput searchInput2" style="flex: 1.3;">
+            <input placeholder="Enter Jodi" type="number" name="BidNo2" id="BidNo2"
+              class="select_satta input-digits input-digits2" style='width: 100%;'
+              onKeyPress="if(this.value.length==2) return false;"></input>
+            <div class="resultBox resultBox2">
+              <!-- here list are inserted from javascript -->
+            </div>
+          </div>
+
+          <select disabled name="BidType2" id="BidType2" class="select_satta"
+            style="padding:9px;border:1px solid #000;border-radius:5px;flex: 1;">
+            <option selected value="jodi">Jodi</option>
+
+          </select>
+
+
+          <select name="points2" id="points2" class="select_satta"
+            style="padding:9px;border:1px solid #000;border-radius:5px;flex: 1;">
+            <option value="" selected>Points</option>
+
+            <option value="100">100</option>
+
+            <option value="150">150</option>
+
+            <option value="200">200</option>
+
+            <option value="250">250</option>
+
+            <option value="300">300</option>
+
+            <option value="350">350</option>
+
+            <option value="400">400</option>
+
+            <option value="450">450</option>
+
+            <option value="500">500</option>
+
+            <option value="600">600</option>
+
+            <option value="700">700</option>
+
+            <option value="800">800</option>
+
+            <option value="900">900</option>
+
+            <option value="1000">1000</option>
+
+            <option value="1200">1200</option>
+
+            <option value="1500">1500</option>
+
+            <option value="2000">2000</option>
+          </select>
+        </div>
+      </div>
+      <!-- JODI DATA END HERE -->
+      <!-- PANA DATA START HERE -->
+      <div class="section-3">
+        <span style="color:green;">
+          <hr>Select For Pana:
+        </span><br>
+        <div style="padding: 8px 0 10px 0;display: flex; align-items: center; justify-content: space-around; ">
+          <div class="radio-item">
+            <label for="Single Pana">
+              <input type="radio" checked id="Single Pana" name="pana" value="spana" />
+              <span class="pana-content" style="color: #000;">Spana </span>
+            </label>
+          </div>
+          <div class="radio-item">
+            <label for="Double Pana">
+              <input type="radio" id="Double Pana" name="pana" value="dpana" />
+              <span class="pana-content" style="color: #000;">Dpana </span>
+            </label>
+          </div>
+          <div class="radio-item">
+            <label for="Triple Pana">
+              <input type="radio" id="Triple Pana" name="pana" value="tpana" />
+              <span class="pana-content" style="color: #000;">Tpana </span>
+            </label>
+          </div>
+
+          <div class="radio-item">
+            <label for="Family Pana">
+              <input type="radio" id="Family Pana" name="pana" value="fpana" />
+              <span class="pana-content" style="color: #000;">FamilyPana</span>
+            </label>
+          </div>
+
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+          <div class="searchInput searchInput3" style="flex: 1.3;">
+            <input placeholder="Enter Pana" type="number" name="BidNo3" id="BidNo3"
+              class="select_satta input-digits input-digits3" style='width: 100%;'
+              onKeyPress="if(this.value.length==3) return false;"></input>
+            <div class="resultBox resultBox3">
+              <!-- here list are inserted from javascript -->
+            </div>
+          </div>
+
+          <select name="BidType3" id="BidType3" class="select_satta"
+            style="padding:9px;border:1px solid #000;border-radius:5px;flex: 1;">
+            <option selected id="sp-open" value="SpOpen">SpOpen</option>
+            <option style="display: none;" id="dp-open" value="DpOpen">DpOpen</option>
+            <option style="display: none;" id="tp-open" value="TpOpen">TpOpen</option>
+            <option id="sp-close" value="SpClose">SpClose</option>
+            <option style="display: none;" id="dp-close" value="DpClose">DpClose</option>
+            <option style="display: none;" id="tp-close" value="TpClose">TpClose</option>
+            <option style="display: none;" id="family-open" value="Open">Open</option>
+            <option style="display: none;" id="family-close" value="Close">Close</option>
+
+          </select>
+
+
+          <select name="points3" id="points3" class="select_satta"
+            style="padding:9px;border:1px solid #000;border-radius:5px;flex: 1;">
+            <option value="" selected>Points</option>
+
+            <option value="100">100</option>
+
+            <option value="150">150</option>
+
+            <option value="200">200</option>
+
+            <option value="250">250</option>
+
+            <option value="300">300</option>
+
+            <option value="350">350</option>
+
+            <option value="400">400</option>
+
+            <option value="450">450</option>
+
+            <option value="500">500</option>
+
+            <option value="600">600</option>
+
+            <option value="700">700</option>
+
+            <option value="800">800</option>
+
+            <option value="900">900</option>
+
+            <option value="1000">1000</option>
+
+            <option value="1200">1200</option>
+
+            <option value="1500">1500</option>
+
+            <option value="2000">2000</option>
+          </select>
+        </div>
+      </div>
+      <!-- PANA DATA END HERE -->
+      <p class="p-error-message" style="color: red; "></p>
+
+      <input type="button" class="addCF" value="+Add Bid"
+        style="background:green;padding:7px;border:1px solid green;border-radius:15px;width:20%;font-size:18px;color:#fff;margin-top:7px;font-weight:bold; width:250px;"
+        onclick="displayRadioValue()" />
+    </form>
+
+  </div>
+  </div> <br>
+
+  <!-- <form method="post" action=""> -->
+    <input type="hidden" name="PointsAdd" id="PointsAdd" value="0" />
+    <table style="background:#fff; text-align: center;" cellspacing="0" border="1" id="customFields" align="center"
+      width="100%">
+      <tr>
+        <th style="background:#fc9; color:#000; padding:10px;">Bid No</th>
+        <th style="background:#fc9; color:#000; padding:10px;">Bid Type</th>
+        <th style="background:#fc9; color:#000; padding:10px;">Point</th>
+        <th style="background:#fc9; color:#000; padding:10px;">Action</th>
+      </tr>
+    </table>
+    <input type="hidden" name="game_date" value="15-08-2024" />
+
+    <input type="hidden" name="game_name" value="dhan_kuber_day" />
+    <input type="hidden" name="pointsHide" id="pointsHide" />
+    <input type="hidden" name="BidTypeHide" id="BidTypeHide" />
+    <input type="hidden" name="idHide" id="idHide" />
+
+    <br>
+    <input id='book-game-btn' type="submit" value="Book Game" name="sub" class="submit"
+      style="background:#1F6186;padding:8px;border:1px solid #1F6186;border-radius:15px;width:250px;font-size:18px;color:#fff;margin-top:7px;font-weight:bold;" />
+  <!-- </form> -->
+
+  <script type="text/javascript">
+    window.onbeforeunload = function () {
+      var inputs = document.getElementsByTagName("INPUT");
+      for (var i in inputs) {
+        if (inputs[i].type == "button" || inputs[i].type == "submit") {
+          inputs[i].disabled = true;
+        }
+      }
+    };
+  </script>
+  </div>
+
+  </div>
+
+  <table width="100%" border="1" cellpadding="10px" cellspacing="0"
+    style="text-align:center; background-color:#fc9; color:#000; font-weight: 800; margin-top:5px; margin-bottom:5px;">
+    <tr>
+      <th colspan="3" bgcolor="cyan"><big>Dk Matka Rates</big></th>
+    </tr>
+    <tr>
+      <td>Open/Close</td>
+      <td>100 Ka 900 </td>
+    </tr>
+    <tr>
+      <td>Jodi </td>
+      <td>100 Ka 9000 </td>
+    </tr>
+    <tr>
+    </tr>
+  </table>
+  <table width="100%" border="1" cellpadding="10px" cellspacing="0"
+    style="text-align:center; background-color:#fc9; color:#000; font-weight: 800; margin-top:5px; margin-bottom:5px;">
+    <tr>
+      <th colspan="4" bgcolor="cyan"><big>Dk Matka Add Money Offers</big></th>
+    </tr>
+    <tr>
+      <td>Add Money</td>
+      <td>Offer</td>
+      <td>Extra Money</td>
+      <td>Total AddMoney</td>
+    </tr>
+    <tr>
+      <td>Rs.5000/- </td>
+      <td style="color:red">10%</td>
+      <td>500/-</td>
+      <td>5500/-</td>
+    </tr>
+    <tr>
+      <td>Rs.7000/- </td>
+      <td style="color:red">15%</td>
+      <td>750/-</td>
+      <td>5750/-</td>
+    </tr>
+    <tr>
+      <td>Rs.10000/- </td>
+      <td style="color:red">20%</td>
+      <td>1000/-</td>
+      <td>6000/-</td>
+    </tr>
+    
+
+    <tr>
+      <td style="color:blue" colspan="4">दोस्तों वालेट में ऐड मनी ऑफर केवल Rs.5000/- पर है!<br><br>घर में रहे सुरछित
+        रहे! मास्क हमेशा यूज़ करे! <br><br>Paytm, Phonepe, GooglePay, Number<br><br><a
+          href="tel:9993272011">9993272011</a></td>
+    </tr>
+  </table>
+  <p>Satta matka is a very basic game where you are required to guess numbers that range between 00 to 99. With a bit of
+    practice, anyone can be an master of Madhur matka.</p>
+  <div class="result1"><br>
+    <center>अगर आप वॉलेट में पैसा डलवाना चाहते है तो नीचे दिए नंबर पर पेमेंट करे- <br><br>पेमेंट कम से कम Rs.1000/- जमा
+      होगा<br><br>Paytm, Phonepe, GooglePay, Number
+
+      <a href="tel:+919993272011">
+        <h3 style="color:#fff;">9993272011</h3>
+      </a>
+
+
+      <image src="/icon/wp.png"><br>Contact On Whatsaap
+
+        <a href="https://wa.me/+919993272011">
+          <h3 style="color:#fff;">9993272011</h3>
+          <p style="color:#fff;">किसी भी प्रकार की सहायता के लिए Whatsapp करे !</p>
+        </a>
+
+    </center>
+  </div>
+  <br>
+  <br>
+  <style>
+    .fixed-footer {
+      padding: 0;
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      box-shadow: 0 -2px 13px -3px #000
+    }
+
+    .fixed-footer a {
+      text-decoration: none;
+      background-color: #fc9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #000;
+      border-left: 1px solid #6f0026;
+      transition: all .3s;
+      flex-direction: column;
+      padding: 5px 0 6px
+    }
+
+    .fixed-footer a:hover {
+      color: #fff;
+      background-color: #710027;
+      text-shadow: 1px 1px 2px #333
+    }
+  </style>
+
+  <div class="fixed-footer">
+    <div style="width:20%">
+      <a href="/index.html">
+        <img src="/icon/home1.svg" alt="Dk Matka Hompage"></img>
+        <small>Home</small>
+      </a>
+    </div>
+    <div style="width:20%">
+      <a href="/user_transaction.html">
+        <img src="/icon/history1.svg" alt="Dk Matka History"></img>
+        <small>History</small>
+      </a>
+    </div>
+    <div style="width:20%">
+      <a href="/user_wallet.html" style="cursor: pointer;">
+        <img src="/icon/bank1.svg" alt="Dk Matka Wallet"></img>
+        <small>Wallet</small>
+      </a>
+    </div>
+    <div style="width:20%">
+      <a href="/user_profile.html" style="cursor: pointer;">
+        <img src="/icon/profile1.svg" alt="Dk Matka Profile"></img>
+        <small>Profile</small>
+      </a>
+    </div>
+    <div style="width:20%">
+      <a href="#" onclick="window.location.reload()" style="cursor: pointer;">
+        <img src="/icon/refresh1.svg" alt="Satta Matka Reresh"></img>
+        <small>Refresh</small>
+      </a>
+    </div>
+  </div>
+</body>
+<script src="script.js"></script>
+>>>>>>> 1229593a5115387d1053ff8992d439ddafbcca87
 </html>
