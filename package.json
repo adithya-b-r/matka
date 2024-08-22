@@ -10,6 +10,6 @@
   "dependencies": {
     "firebase-admin": "^11.0.0"
   },
-  "author": "Your Name",
+  "author": "ABR",
   "license": "MIT"
 }
