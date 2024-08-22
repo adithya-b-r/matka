@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Admin Panel - Users and Games</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- Core theme CSS -->
+    <link href="styles.css" rel="stylesheet" />
+    <style>
+        /* Example styles for displaying users and games */
+        .user-table,
+        .games-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .user-table th,
+        .user-table td,
+        .games-table th,
+        .games-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .user-table th,
+        .games-table th {
+            background-color: #f4f4f4;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        #page-content-wrapper {
+            margin-left: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .update-btn {
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-light">Admin Panel</div>
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#"
+                    data-section="home">Home</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#"
+                    data-section="manage-users">Manage Users</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#"
+                    data-section="manage-games">Manage Games</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#"
+                    data-section="logout">Logout</a>
+            </div>
+        </div>
+        <!-- Page content wrapper -->
+        <div id="page-content-wrapper">
+            <!-- Top navigation -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    <button class="btn btn-primary" id="sidebarToggle">Menu</button>
+                </div>
+            </nav>
+            <!-- Page content -->
+            <div id="content">
+                <div id="home" class="content-section active">
+                    <h1 class="mt-4">Home</h1>
+                    <p>Welcome to the Home page. Select an option from the sidebar to get started.</p>
+                </div>
+                <!-- Admin Panel Section -->
+                <div id="manage-users" class="content-section">
+                    <h1 class="mt-4">Manage Users</h1>
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>Phone Number</th>
+                                <th>History</th>
+                                <th>Balance</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-table-body">
+                            <!-- User data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="manage-games" class="content-section">
+                    <h1 class="mt-4">Manage Games</h1>
+                    <div class="form-group">
+                        <h2>Add/Update Game Result</h2>
+                        <div class="input-group">
+                            <input type="date" id="game-date" class="form-control" />
+                            <select id="game-select" class="form-control">
+                                <option value="GAZIYABAAD">GAZIYABAAD</option>
+                                <option value="DESAWAR">DESAWAR</option>
+                                <option value="GALI">GALI</option>
+                                <option value="FARIDABAD">FARIDABAD</option>
+                                <option value="GOLDSTAR">GOLDSTAR</option>
+                                <option value="GHAZIABAD DIN">GHAZIABAD DIN</option>
+                            </select>
+                            <input type="text" id="game-result" class="form-control" placeholder="Enter result" />
+                            <button class="update-btn" id="update-result">Submit</button>
+                        </div>
+                    </div>
+                    <table class="games-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <!-- <th>Game</th> -->
+                                <!-- <th>Number</th> -->
+                                <th>GAZIYABAAD</th>
+                                <th>DESAWAR</th>
+                                <th>GALI</th>
+                                <th>FARIDABAD</th>
+                                <th>GOLDSTAR</th>
+                                <th>GHAZIABAD DIN</th>
+                            </tr>
+                        </thead>
+                        <tbody id="games-table-body">
+                            <!-- Game data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="logout" class="content-section">
+                    <h1 class="mt-4">Logout</h1>
+                    <p>You have been logged out.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS -->
+    <script src="scripts.js"></script>
+    <script type="module">
+        import { getDatabase, ref, get, update, set } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA-5GSJvxnDk0XDmG62IXc8QIR-Kb4QiCo",
+            authDomain: "matka-78bf1.firebaseapp.com",
+            databaseURL: "https://matka-78bf1-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "matka-78bf1",
+            storageBucket: "matka-78bf1.appspot.com",
+            messagingSenderId: "979382842776",
+            appId: "1:979382842776:web:6c7d2e67f1030bc76b27ed"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        async function loadUsers() {
+            try {
+                const dbRef = ref(db, 'users');
+                const snapshot = await get(dbRef);
+                if (snapshot.exists()) {
+                    const users = snapshot.val();
+                    const tableBody = document.getElementById('user-table-body');
+                    tableBody.innerHTML = ''; // Clear previous data
+
+                    for (const phoneNumber in users) {
+                        const user = users[phoneNumber];
+                        const history = user.history || 'No history';
+                        const balance = user.balance || 'N/A';
+
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${phoneNumber}</td>
+                            <td>${history}</td>
+                            <td><input type="text" class="form-control balance-input" value="${balance}" /></td>
+                            <td><button class="update-btn" data-phone="${phoneNumber}">Update</button></td>
+                        `;
+                        tableBody.appendChild(row);
+                    }
+                } else {
+                    console.log('No user data available.');
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        }
+
+        async function updateUserBalance(phoneNumber, newBalance) {
+            try {
+                const userRef = ref(db, `users/${phoneNumber}`);
+                await update(userRef, { balance: newBalance });
+                console.log('User balance updated successfully.');
+                loadUsers(); // Refresh the user list after update
+            } catch (error) {
+                console.error('Error updating user balance:', error);
+            }
+        }
+
+        async function loadGames() {
+            try {
+                const dbRef = ref(db, 'randomNumbers');
+                const snapshot = await get(dbRef);
+                if (snapshot.exists()) {
+                    const gamesData = snapshot.val();
+                    const tableBody = document.getElementById('games-table-body');
+                    tableBody.innerHTML = ''; // Clear previous data
+
+                    const gameOrder = ['GAZIYABAAD', 'DESAWAR', 'GALI', 'FARIDABAD', 'GOLDSTAR', 'GHAZIABAD DIN'];
+
+                    for (const [date, games] of Object.entries(gamesData)) {
+                        const row = document.createElement('tr');
+                        var newDate = date.split('-');
+                        var newDate = newDate[2] + '/' + newDate[1] + '/' + newDate[0];
+                        let rowHTML = `<td>${newDate}</td>`;
+                        gameOrder.forEach(game => {
+                            rowHTML += `<td>${games[game] || 'N/A'}</td>`;
+                        });
+                        row.innerHTML = rowHTML;
+                        tableBody.appendChild(row);
+                    }
+                } else {
+                    console.log('No game data available.');
+                }
+            } catch (error) {
+                console.error('Error fetching game data:', error);
+            }
+        }
+
+        // async function populateGameDropdown() {
+        //     try {
+        //         const dbRef = ref(db, 'gameList');
+        //         const snapshot = await get(dbRef);
+        //         if (snapshot.exists()) {
+        //             const games = snapshot.val();
+        //             const gameSelect = document.getElementById('game-select');
+        //             gameSelect.innerHTML = ''; // Clear previous options
+        //             for (const game of games) {
+        //                 const option = document.createElement('option');
+        //                 option.value = game;
+        //                 option.textContent = game;
+        //                 gameSelect.appendChild(option);
+        //             }
+        //         } else {
+        //             console.log('No game data available.');
+        //         }
+        //     } catch (error) {
+        //         console.error('Error fetching game list:', error);
+        //     }
+        // }
+
+        async function updateGameResult(date, game, result) {
+            try {
+                const gameRef = ref(db, `randomNumbers/${date}`);
+                const snapshot = await get(gameRef);
+                const existingData = snapshot.exists() ? snapshot.val() : {};
+
+                existingData[game] = result;
+                await set(gameRef, existingData);
+
+                console.log('Game result updated successfully.');
+                loadGames(); // Refresh the game list after update
+            } catch (error) {
+                console.error('Error updating game result:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            loadUsers(); // Load users when the page is ready
+            // populateGameDropdown(); // Populate game dropdown when the page is ready
+            loadGames(); // Load games when the page is ready
+
+            const sidebarLinks = document.querySelectorAll('#sidebar-wrapper a');
+            const sections = document.querySelectorAll('.content-section');
+
+            function showSection(id) {
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === id) {
+                        section.classList.add('active');
+                    }
+                });
+            }
+
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const sectionId = this.getAttribute('data-section');
+                    showSection(sectionId);
+                });
+            });
+
+            document.getElementById('sidebarToggle').addEventListener('click', function () {
+                document.getElementById('sidebar-wrapper').classList.toggle('active');
+                document.getElementById('page-content-wrapper').classList.toggle('active');
+            });
+
+            document.getElementById('update-result').addEventListener('click', function () {
+                const date = document.getElementById('game-date').value;
+                const game = document.getElementById('game-select').value;
+                const result = document.getElementById('game-result').value;
+
+                if (date && game && result) {
+                    updateGameResult(date, game, result);
+                } else {
+                    console.log('Please enter valid date, game, and result.');
+                }
+            });
+
+            document.querySelector('#user-table-body').addEventListener('click', function (e) {
+                if (e.target && e.target.classList.contains('update-btn')) {
+                    const phoneNumber = e.target.getAttribute('data-phone');
+                    const newBalance = e.target.parentElement.previousElementSibling.querySelector('.balance-input').value;
+                    if (phoneNumber && newBalance) {
+                        updateUserBalance(phoneNumber, newBalance);
+                    } else {
+                        console.log('Please enter a valid balance.');
+                    }
+                }
+            });
+
+            // Set the default section
+            showSection('home');
+        });
+    </script>
+
+</body>
+
+</html>

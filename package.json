@@ -1,0 +1,15 @@
+{
+  "name": "matka",
+  "version": "1.0.0",
+  "description": "A project to manage random number updates in Firebase.",
+  "main": "index.js",
+  "scripts": {
+    "start": "netlify dev",
+    "build": "netlify build"
+  },
+  "dependencies": {
+    "firebase-admin": "^11.0.0"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}

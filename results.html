@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matka Results</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    center {
+      display: block;
+      margin: 2rem auto;
+    }
+    h2 {
+      color: #333;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    table {
+      width: 80%;
+      border-collapse: collapse;
+      margin: 1rem auto;
+      background-color: #fff;
+    }
+    th, td {
+      padding: 12px 20px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: lightblue;
+      color: #000;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <center>
+    <h2>Matka Game Results</h2>
+
+    <table id="resultsTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>GAZIYABAAD</th>
+          <th>DESAWAR</th>
+          <th>GALI</th>
+          <th>FARIDABAD</th>
+          <th>GOLDSTAR</th>
+          <th>GHAZIABAD DIN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be added dynamically -->
+      </tbody>
+    </table>
+  </center>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { fetchAllGameResults } from './session.js';
+
+    async function displayGameResults() {
+      try {
+        const results = await fetchAllGameResults();
+        const tableBody = document.querySelector('#resultsTable tbody');
+
+        // Clear existing rows
+        tableBody.innerHTML = '';
+
+        for (const [date, games] of Object.entries(results)) {
+          const row = document.createElement('tr');
+          var newDate = date.split('-');
+          var newDate = newDate[2] + '/' + newDate[1] + '/' + newDate[0];
+          row.innerHTML = `<td>${newDate}</td>` +
+            `<td>${games['GAZIYABAAD']}</td>` +
+            `<td>${games['DESAWAR']}</td>` +
+            `<td>${games['GALI']}</td>` +
+            `<td>${games['FARIDABAD']}</td>` +
+            `<td>${games['GOLDSTAR']}</td>` +
+            `<td>${games['GHAZIABAD DIN']}</td>`;
+          tableBody.appendChild(row);
+        }
+      } catch (error) {
+        console.error('Error displaying game results:', error);
+      }
+    }
+
+    // Display game results when the page loads
+    document.addEventListener('DOMContentLoaded', displayGameResults);
+  </script>
+</body>
+</html>

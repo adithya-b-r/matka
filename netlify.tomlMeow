@@ -1,0 +1,2 @@
+[functions."updateRandomNumber"]
+schedule = "15 * * * *"
