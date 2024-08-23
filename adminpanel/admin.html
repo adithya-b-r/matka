@@ -235,7 +235,7 @@
 
                     for (const [date, games] of Object.entries(gamesData)) {
                         const row = document.createElement('tr');
-                        var newDate = date.split('-');
+                        var newDate = date.split('_');
                         var newDate = newDate[2] + '/' + newDate[1] + '/' + newDate[0];
                         let rowHTML = `<td>${newDate}</td>`;
                         gameOrder.forEach(game => {
