@@ -640,14 +640,21 @@
             console.log(newBalance);
             await updateUserBalance(phoneNumber, newBalance);
 
-          const bidNumber = document.getElementById('BidNo2').value;
-          const gameType = document.querySelector('input[name="game-type"]:checked').value;
+            const bidNumber = document.getElementById('BidNo2').value;
+            const gameType = document.querySelector('input[name="game-type"]:checked').value;
 
 
             // Add to user history
             await addToUserHistory(phoneNumber, gameName, bidNumber, gameType);
 
             console.log('Bid placed and history updated.');
+            const table = document.getElementById('customFields');
+            table.innerHTML = "";
+            const message = document.createElement('h3');
+            message.style.color = 'green';
+            message.textContent = 'Bet Placed Successfully!';
+            table.appendChild(message);
+
           } catch (error) {
             console.error('Error updating balance:', error);
           }
