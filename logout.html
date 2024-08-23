@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,32 +24,4 @@
 
 </body>
 
-=======
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logout</title>
-</head>
-
-<body>
-  <script type="module">
-    import { logoutUser } from './session.js';
-
-    function handleLogout() {
-      logoutUser().then(() => {
-        console.log('User logged out');
-      }).catch(error => {
-        console.error('Logout failed:', error);
-      });
-    }
-
-    handleLogout();
-  </script>
-
-</body>
-
->>>>>>> 1229593a5115387d1053ff8992d439ddafbcca87
 </html>

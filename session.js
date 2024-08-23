@@ -194,19 +194,6 @@ export async function fetchAllGameResults() {
   }
 }
 
-export function getUserTransactionHistory(phoneNumber) {
-  const historyRef = ref(db, 'users/' + phoneNumber + '/history');
-  return get(historyRef).then(snapshot => {
-    const data = snapshot.val();
-    if (data) {
-      // Convert object to array and sort by timestamp if necessary
-      return Object.values(data).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-    } else {
-      return [];
-    }
-  });
-}
-
 export function getUserBetTransactions(phoneNumber) {
   const historyRef = ref(db, 'users/' + phoneNumber + '/history');
   return get(historyRef).then((snapshot) => {
