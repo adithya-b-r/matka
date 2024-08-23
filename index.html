@@ -215,38 +215,94 @@
 
   <script type="module">
     import { CheckSession } from './session.js';
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
 
-    function setGameStatus() {
+    const firebaseConfig = {
+      apiKey: "AIzaSyA-5GSJvxnDk0XDmG62IXc8QIR-Kb4QiCo",
+      authDomain: "matka-78bf1.firebaseapp.com",
+      databaseURL: "https://matka-78bf1-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "matka-78bf1",
+      storageBucket: "matka-78bf1.appspot.com",
+      messagingSenderId: "979382842776",
+      appId: "1:979382842776:web:6c7d2e67f1030bc76b27ed"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    async function setGameStatus() {
       const today = new Date();
       const dateTimeIST = today.toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false }).replace(/,/g, '');
       const [date, time] = dateTimeIST.split(' ');
-      const hours = parseInt(time.split(':')[0], 10);
-      const minutes = parseInt(time.split(':')[1], 10);
+  
+      // Convert date to YYYY_MM_DD format
+      const [day, month, year] = date.split('/');
+      const formattedDate = `${year}_${month}_${day}`;
 
-        document.getElementById("game1").innerText = "";
-        document.getElementById("game1").style.color = "green";
-        // document.getElementById("game1Status").innerHTML = "<a href='/game/game.html?siteName=DESAWAR'>Play Now</a>";
-        document.getElementById("game1Status").innerHTML = `<a href='/results.html'>${date}</a>`;
+      try {
+        const gamesRef = ref(db, `randomNumbers/${formattedDate}`);
+        const snapshot = await get(gamesRef);
+  
+        if (snapshot.exists()) {
+          const gamesData = snapshot.val();
+  
+          // Update game status with fetched data
+          document.getElementById("game1").innerText = " ";
+          document.getElementById("game1").style.color = "green";
+          document.getElementById("game1Status").innerHTML = `<a href='/results.html'>${gamesData['GAZIYABAAD'] || 'N/A'}</a>`;
+  
+          document.getElementById("game2").innerText = " ";
+          document.getElementById("game2").style.color = "green";
+          document.getElementById("game2Status").innerHTML = `<a href='/results.html'>${gamesData['DESAWAR'] || 'N/A'}</a>`;
+  
+          document.getElementById("game3").innerText = " ";
+          document.getElementById("game3").style.color = "green";
+          document.getElementById("game3Status").innerHTML = `<a href='/results.html'>${gamesData['GALI'] || 'N/A'}</a>`;
+  
+          document.getElementById("game4").innerText = " ";
+          document.getElementById("game4").style.color = "green";
+          document.getElementById("game4Status").innerHTML = `<a href='/results.html'>${gamesData['FARIDABAD'] || 'N/A'}</a>`;
+  
+          document.getElementById("game5").innerText = " ";
+          document.getElementById("game5").style.color = "green";
+          document.getElementById("game5Status").innerHTML = `<a href='/results.html'>${gamesData['GOLDSTAR'] || 'N/A'}</a>`;
+  
+          document.getElementById("game6").innerText = ' ';
+          document.getElementById("game6").style.color = "green";
+          document.getElementById("game6Status").innerHTML = `<a href='/results.html'>${gamesData['GHAZIABAD DIN'] || 'N/A'}</a>`;
+  
+        } else {
+          console.log("No data available for today's date.");
+          document.getElementById("game1").innerText = "";
+      document.getElementById("game1").style.color = "green";
+      document.getElementById("game1Status").innerHTML = `<a href='/results.html'>${date}</a>`;
 
-        document.getElementById("game2").innerText = "";
-        document.getElementById("game2").style.color = "green";
-        document.getElementById("game2Status").innerHTML = `<a href='/results.html'>${date}</a>`;
-        
-        document.getElementById("game3").innerText = "";
-        document.getElementById("game3").style.color = "green";
-        document.getElementById("game3Status").innerHTML = `<a href='/results.html'>${date}</a>`;
-        
-        document.getElementById("game4").innerText = "";
-        document.getElementById("game4").style.color = "green";
-        document.getElementById("game4Status").innerHTML = `<a href='/results.html'>${date}</a>`;
-        
-        document.getElementById("game5").innerText = "";
-        document.getElementById("game5").style.color = "green";
-        document.getElementById("game5Status").innerHTML = `<a href='/results.html'>${date}</a>`;
-        
-        document.getElementById("game6").innerText = "";
-        document.getElementById("game6").style.color = "green";
-        document.getElementById("game6Status").innerHTML = `<a href='/results.html'>${date}</a>`;
+      document.getElementById("game2").innerText = "";
+      document.getElementById("game2").style.color = "green";
+      document.getElementById("game2Status").innerHTML = `<a href='/results.html'>${date}</a>`;
+
+      document.getElementById("game3").innerText = "";
+      document.getElementById("game3").style.color = "green";
+      document.getElementById("game3Status").innerHTML = `<a href='/results.html'>${date}</a>`;
+
+      document.getElementById("game4").innerText = "";
+      document.getElementById("game4").style.color = "green";
+      document.getElementById("game4Status").innerHTML = `<a href='/results.html'>${date}</a>`;
+
+      document.getElementById("game5").innerText = "";
+      document.getElementById("game5").style.color = "green";
+      document.getElementById("game5Status").innerHTML = `<a href='/results.html'>${date}</a>`;
+
+      document.getElementById("game6").innerText = "";
+      document.getElementById("game6").style.color = "green";
+      document.getElementById("game6Status").innerHTML = `<a href='/results.html'>${date}</a>`;
+        }
+      } catch (error) {
+        console.error("Error fetching today's data:", error);
+      }
+
+      
     }
 
     export function manipulateNav() {
@@ -333,7 +389,7 @@
       <td><span style="font-size:22px; color: green; font-weight: bold;; color: green;;">DESAWAR </span><br><span
           style="color:purple; font-size:14px;">[05:15 AM]</span><br><span style="font-size:20px; color:blue"><b><span
               id="game1Status"><a href='/results.html'>View Result</a></span< /b></span><br>
-            <span style="color:red; font-size:15px; font-weight: 600;" id="game1">Betting is Closed</span>
+            <span style="color:red; font-size:15px; font-weight: 600;" id="game1"></span>
       </td>
       <td width="30%"><a onclick="checkGame('DESAWAR', 1)"><img src="/icon/play.jpg"
             style="width:30px;height:30px;"><br><span style="color:red;">Play Game</span></a></td>
@@ -346,7 +402,7 @@
               style="color:purple; font-size:14px;">[06:00 PM]</span><br><span
               style="font-size:20px; color:blue"><b><span id="game2Status"><a href='/results.html'>View Result</a>
                   </span< /b></span><br>
-                <span style="color:red; font-size:15px; font-weight: 600;" id="game2">Betting is Closed</span>
+                <span style="color:red; font-size:15px; font-weight: 600;" id="game2"></span>
           </td>
           <td width="30%"><a onclick="checkGame('FARIDABAD', 2)"><img src="/icon/play.jpg"
                 style="width:30px;height:30px;"><br><span style="color:red;">Play Game</span></a></td>
@@ -359,7 +415,7 @@
                 </span><br><span style="color:purple; font-size:14px;">[04:30 PM]</span><br><span
                   style="font-size:20px; color:blue"><b><span id="game3Status"><a href='/results.html'>View Result</a>
                       </span< /b></span><br>
-                    <span style="color:red; font-size:15px; font-weight: 600;" id="game3">Betting is Closed</span>
+                    <span style="color:red; font-size:15px; font-weight: 600;" id="game3"></span>
               </td>
               <td width="30%"><a onclick="checkGame('GHAZIABAD DIN', 3)"><img src="/icon/play.jpg"
                     style="width:30px;height:30px;"><br><span style="color:red;">Play Game</span></a></td>
@@ -372,7 +428,7 @@
                     </span><br><span style="color:purple; font-size:14px;">[11:50 PM]
                     </span><br><span style="font-size:20px; color:blue"><b><span id="game4Status"><a
                             href='/results.html'>View Result</a></span< /b></span><br>
-                        <span style="color:red; font-size:15px; font-weight: 600;" id="game4">Betting is Closed</span>
+                        <span style="color:red; font-size:15px; font-weight: 600;" id="game4"></span>
                   </td>
                   <td width="30%"><a onclick="checkGame('GALI', 4)"><img src="/icon/play.jpg"
                         style="width:30px;height:30px;"><br><span style="color:red;">Play Game</span></a></td>
@@ -385,7 +441,7 @@
                         </span><br><span style="color:purple; font-size:14px;">[08:50 PM]</span><br><span
                           style="font-size:20px; color:blue"><b><span id="game5Status"><a href='/results.html'>View
                                 Result</a></span></b></span><br>
-                        <span style="color:red; font-size:15px; font-weight: 600;" id="game5">Betting is Closed</span>
+                        <span style="color:red; font-size:15px; font-weight: 600;" id="game5"></span>
                       </td>
                       <td width="30%"><a onclick="checkGame('GAZIYABAAD', 5)"><img src="/icon/play.jpg"
                             style="width:30px;height:30px;"><br><span style="color:red;">Play Game</span></a></td>
@@ -398,8 +454,7 @@
                             </span><br><span style="color:purple; font-size:14px;">[04:15 PM]</span><br><span
                               style="font-size:20px; color:blue"><b><span id="game6Status"><a href='/results.html'>View
                                     Result</a></span< /b></span><br>
-                                <span style="color:red; font-size:15px; font-weight: 600;" id="game6">Betting is
-                                  Closed</span>
+                                <span style="color:red; font-size:15px; font-weight: 600;" id="game6"></span>
                           </td>
                           <td width="30%"><a onclick="checkGame('GOLDSTAR', 6)"><img src="/icon/play.jpg"
                                 style="width:30px;height:30px;"><br><span style="color:red;">Play Game</span></a></td>
