@@ -182,11 +182,26 @@
         const db = getDatabase(app);
         const auth = getAuth();
 
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                window.location.href = 'login.html'; // Redirect to login page if not authenticated
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userRef = ref(db, `users/${user.uid}`);
+                const snapshot = await get(userRef);
+
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    if (userData.role !== 'admin') {
+                        alert('Access denied. Only admins can access this page.');
+                        window.location.href = 'login.html';  // Redirect non-admin users
+                    }
+                } else {
+                    console.log('No user data available.');
+                    window.location.href = 'login.html';  // Redirect if no user data found
+                }
+            } else {
+                window.location.href = 'login.html';  // Redirect if not authenticated
             }
         });
+
 
         const userLogout = document.getElementById("logout");
 
@@ -332,7 +347,7 @@
                 const game = document.getElementById('game-select').value;
                 const result = document.getElementById('game-result').value;
 
-                if(!dateInput){
+                if (!dateInput) {
                     alert("Date field is empty!");
                 }
 
