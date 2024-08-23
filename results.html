@@ -51,12 +51,40 @@
     tr:hover {
       background-color: #e0e0e0;
     }
+
+    label {
+      font-size: 1.1rem;
+      margin-right: 1rem;
+    }
+
+    select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
   </style>
 </head>
 
 <body>
   <center>
     <h2>Matka Game Results</h2>
+
+    <label for="monthSelect">Select Month:</label>
+    <select id="monthSelect">
+      <option value="">All Months</option>
+      <option value="01">January</option>
+      <option value="02">February</option>
+      <option value="03">March</option>
+      <option value="04">April</option>
+      <option value="05">May</option>
+      <option value="06">June</option>
+      <option value="07">July</option>
+      <option value="08">August</option>
+      <option value="09">September</option>
+      <option value="10">October</option>
+      <option value="11">November</option>
+      <option value="12">December</option>
+    </select>
 
     <table id="resultsTable">
       <thead>
@@ -88,20 +116,29 @@
         // Clear existing rows
         tableBody.innerHTML = '';
 
+        const selectedMonth = document.querySelector('#monthSelect').value;
+
         // Convert Object.entries to an array and sort by date in descending order
         const sortedResults = Object.entries(results).sort((a, b) => {
           return new Date(b[0].replace(/_/g, '-')) - new Date(a[0].replace(/_/g, '-'));
         });
 
+        // for (const [date, games] of Object.entries(results)) {
         for (const [date, games] of sortedResults) {
-          console.log(date);
-          const row = document.createElement('tr');
+          // Extract month from date
+          const dateParts = date.split('_');
+          const month = dateParts[1]; // Extract month part from the date
+
+          // Filter based on selected month (or display all if no month is selected)
+          if (selectedMonth && month !== selectedMonth) {
+            continue; // Skip if the month does not match the selected month
+          }
 
           // Reformat date to DD/MM/YYYY
-          var newDate = date.split('_');
-          var formattedDate = newDate[2] + '/' + newDate[1] + '/' + newDate[0];
+          const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
 
-          // Populate the table row with game data
+          // Create a new row for the table
+          const row = document.createElement('tr');
           row.innerHTML = `<td>${formattedDate}</td>` +
             `<td>${games['GAZIYABAAD']}</td>` +
             `<td>${games['DESAWAR']}</td>` +
@@ -121,6 +158,9 @@
 
     // Display game results when the page loads
     document.addEventListener('DOMContentLoaded', displayGameResults);
+
+    // Update the table when the month is changed
+    document.querySelector('#monthSelect').addEventListener('change', displayGameResults);
   </script>
 </body>
 
