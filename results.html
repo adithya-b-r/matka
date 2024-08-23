@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,39 +12,48 @@
       margin: 0;
       padding: 0;
     }
+
     center {
       display: block;
       margin: 2rem auto;
     }
+
     h2 {
       color: #333;
       text-transform: uppercase;
       font-weight: 800;
       margin-bottom: 1rem;
     }
+
     table {
       width: 80%;
       border-collapse: collapse;
       margin: 1rem auto;
       background-color: #fff;
     }
-    th, td {
+
+    th,
+    td {
       padding: 12px 20px;
       text-align: center;
       border: 1px solid #ddd;
     }
+
     th {
       background-color: lightblue;
       color: #000;
     }
+
     tr:nth-child(even) {
       background-color: #f9f9f9;
     }
+
     tr:hover {
       background-color: #e0e0e0;
     }
   </style>
 </head>
+
 <body>
   <center>
     <h2>Matka Game Results</h2>
@@ -78,19 +88,32 @@
         // Clear existing rows
         tableBody.innerHTML = '';
 
-        for (const [date, games] of Object.entries(results)) {
+        // Convert Object.entries to an array and sort by date in descending order
+        const sortedResults = Object.entries(results).sort((a, b) => {
+          return new Date(b[0].replace(/_/g, '-')) - new Date(a[0].replace(/_/g, '-'));
+        });
+
+        for (const [date, games] of sortedResults) {
+          console.log(date);
           const row = document.createElement('tr');
-          var newDate = date.split('-');
-          var newDate = newDate[2] + '/' + newDate[1] + '/' + newDate[0];
-          row.innerHTML = `<td>${newDate}</td>` +
+
+          // Reformat date to DD/MM/YYYY
+          var newDate = date.split('_');
+          var formattedDate = newDate[2] + '/' + newDate[1] + '/' + newDate[0];
+
+          // Populate the table row with game data
+          row.innerHTML = `<td>${formattedDate}</td>` +
             `<td>${games['GAZIYABAAD']}</td>` +
             `<td>${games['DESAWAR']}</td>` +
             `<td>${games['GALI']}</td>` +
             `<td>${games['FARIDABAD']}</td>` +
             `<td>${games['GOLDSTAR']}</td>` +
             `<td>${games['GHAZIABAD DIN']}</td>`;
+
+          // Append the row to the table body
           tableBody.appendChild(row);
         }
+
       } catch (error) {
         console.error('Error displaying game results:', error);
       }
@@ -100,4 +123,5 @@
     document.addEventListener('DOMContentLoaded', displayGameResults);
   </script>
 </body>
+
 </html>
