@@ -184,7 +184,7 @@
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const userRef = ref(db, `users/${user.uid}`);
+                /*const userRef = ref(db, `users/${user.uid}`);
                 const snapshot = await get(userRef);
 
                 if (snapshot.exists()) {
@@ -196,7 +196,7 @@
                 } else {
                     console.log('No user data available.');
                     window.location.href = 'login.html';  // Redirect if no user data found
-                }
+                }*/
             } else {
                 window.location.href = 'login.html';  // Redirect if not authenticated
             }
