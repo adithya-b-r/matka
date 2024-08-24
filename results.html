@@ -123,8 +123,8 @@
           return new Date(b[0].replace(/_/g, '-')) - new Date(a[0].replace(/_/g, '-'));
         });
 
-        // for (const [date, games] of Object.entries(results)) {
-        for (const [date, games] of sortedResults) {
+        for (const [date, games] of Object.entries(results)) {
+        //for (const [date, games] of sortedResults) {
           // Extract month from date
           const dateParts = date.split('_');
           const month = dateParts[1]; // Extract month part from the date
