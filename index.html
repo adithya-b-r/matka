@@ -250,53 +250,53 @@
           // Update game status with fetched data
           document.getElementById("game1").innerText = " ";
           document.getElementById("game1").style.color = "green";
-          document.getElementById("game1Status").innerHTML = `<a href='/results.html'>${gamesData['GAZIYABAAD'] || 'N/A'}</a>`;
+          document.getElementById("game1Status").innerHTML = `<a href='/results.html'>${gamesData['GAZIYABAAD'] || --'}</a>`;
   
           document.getElementById("game2").innerText = " ";
           document.getElementById("game2").style.color = "green";
-          document.getElementById("game2Status").innerHTML = `<a href='/results.html'>${gamesData['DESAWAR'] || 'N/A'}</a>`;
+          document.getElementById("game2Status").innerHTML = `<a href='/results.html'>${gamesData['DESAWAR'] || '--'}</a>`;
   
           document.getElementById("game3").innerText = " ";
           document.getElementById("game3").style.color = "green";
-          document.getElementById("game3Status").innerHTML = `<a href='/results.html'>${gamesData['GALI'] || 'N/A'}</a>`;
+          document.getElementById("game3Status").innerHTML = `<a href='/results.html'>${gamesData['GALI'] || '--'}</a>`;
   
           document.getElementById("game4").innerText = " ";
           document.getElementById("game4").style.color = "green";
-          document.getElementById("game4Status").innerHTML = `<a href='/results.html'>${gamesData['FARIDABAD'] || 'N/A'}</a>`;
+          document.getElementById("game4Status").innerHTML = `<a href='/results.html'>${gamesData['FARIDABAD'] || '--'}</a>`;
   
           document.getElementById("game5").innerText = " ";
           document.getElementById("game5").style.color = "green";
-          document.getElementById("game5Status").innerHTML = `<a href='/results.html'>${gamesData['GOLDSTAR'] || 'N/A'}</a>`;
+          document.getElementById("game5Status").innerHTML = `<a href='/results.html'>${gamesData['GOLDSTAR'] || '--'}</a>`;
   
           document.getElementById("game6").innerText = ' ';
           document.getElementById("game6").style.color = "green";
-          document.getElementById("game6Status").innerHTML = `<a href='/results.html'>${gamesData['GHAZIABAD DIN'] || 'N/A'}</a>`;
+          document.getElementById("game6Status").innerHTML = `<a href='/results.html'>${gamesData['GHAZIABAD DIN'] || '--'}</a>`;
   
         } else {
           console.log("No data available for today's date.");
           document.getElementById("game1").innerText = "";
       document.getElementById("game1").style.color = "green";
-      document.getElementById("game1Status").innerHTML = `<a href='/results.html'>${date}</a>`;
+      document.getElementById("game1Status").innerHTML = `<a href='/results.html'>--</a>`;
 
       document.getElementById("game2").innerText = "";
       document.getElementById("game2").style.color = "green";
-      document.getElementById("game2Status").innerHTML = `<a href='/results.html'>${date}</a>`;
+      document.getElementById("game2Status").innerHTML = `<a href='/results.html'>--</a>`;
 
       document.getElementById("game3").innerText = "";
       document.getElementById("game3").style.color = "green";
-      document.getElementById("game3Status").innerHTML = `<a href='/results.html'>${date}</a>`;
+      document.getElementById("game3Status").innerHTML = `<a href='/results.html'>--</a>`;
 
       document.getElementById("game4").innerText = "";
       document.getElementById("game4").style.color = "green";
-      document.getElementById("game4Status").innerHTML = `<a href='/results.html'>${date}</a>`;
+      document.getElementById("game4Status").innerHTML = `<a href='/results.html'>--</a>`;
 
       document.getElementById("game5").innerText = "";
       document.getElementById("game5").style.color = "green";
-      document.getElementById("game5Status").innerHTML = `<a href='/results.html'>${date}</a>`;
+      document.getElementById("game5Status").innerHTML = `<a href='/results.html'>--</a>`;
 
       document.getElementById("game6").innerText = "";
       document.getElementById("game6").style.color = "green";
-      document.getElementById("game6Status").innerHTML = `<a href='/results.html'>${date}</a>`;
+      document.getElementById("game6Status").innerHTML = `<a href='/results.html'>--</a>`;
         }
       } catch (error) {
         console.error("Error fetching today's data:", error);
