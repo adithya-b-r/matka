@@ -7,7 +7,7 @@ import { getDatabase, ref, set, get, child, update, push } from 'https://www.gst
 const firebaseConfig = {
   apiKey: "AIzaSyA-5GSJvxnDk0XDmG62IXc8QIR-Kb4QiCo",
   authDomain: "Satta-78bf1.firebaseapp.com",
-  databaseURL: "https://Satta-78bf1-default-rtdb.europe-west1.firebasedatabase.app",
+  databaseURL: "https://matka-78bf1-default-rtdb.europe-west1.firebasedatabase.app/",
   projectId: "Satta-78bf1",
   storageBucket: "Satta-78bf1.appspot.com",
   messagingSenderId: "979382842776",
