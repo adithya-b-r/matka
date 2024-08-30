@@ -8,69 +8,70 @@
 <body>
   <script type="module">
     // Import Firebase SDKs
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
-import { getDatabase, ref, set } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
+    import { getDatabase, ref, set } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
 
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyA-5GSJvxnDk0XDmG62IXc8QIR-Kb4QiCo",
-  authDomain: "matka-78bf1.firebaseapp.com",
-  databaseURL: "https://matka-78bf1-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "matka-78bf1",
-  storageBucket: "matka-78bf1.appspot.com",
-  messagingSenderId: "979382842776",
-  appId: "1:979382842776:web:6c7d2e67f1030bc76b27ed"
-};
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA-5GSJvxnDk0XDmG62IXc8QIR-Kb4QiCo",
+      authDomain: "matka-78bf1.firebaseapp.com",
+      databaseURL: "https://matka-78bf1-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "matka-78bf1",
+      storageBucket: "matka-78bf1.appspot.com",
+      messagingSenderId: "979382842776",
+      appId: "1:979382842776:web:6c7d2e67f1030bc76b27ed"
+    };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-// List of all games
-const games = [
-  "GAZIYABAAD 2",
-  "DESAWAR 2",
-  "GALI 2",
-  "FARIDABAD 2",
-  "GOLDSTAR 2",
-  "GHAZIABAD DIN 2"
-];
+    // List of all games
+    const games = [
+      "GAZIYABAAD 2",
+      "DESAWAR 2",
+      "GALI 2",
+      "FARIDABAD 2",
+      "GOLDSTAR 2",
+      "GHAZIABAD DIN 2"
+    ];
 
-// Generate random data for each game
-function generateRandomNumber() {
-  return Math.floor(Math.random() * 100) + 1; // Generates a number between 1 and 100
-}
+    // Generate random data for each game with leading zero for single digits
+    function generateRandomNumber() {
+      const num = Math.floor(Math.random() * 100) + 1; // Generates a number between 1 and 100
+      return num < 10 ? '0' + num : num; // Add leading zero if necessary
+    }
 
-// Function to generate and store data from January till today
-async function generateAndStoreData() {
-  const today = new Date();
-  const startDate = new Date(today.getFullYear(), 0, 1); // January 1st of the current year
+    // Function to generate and store data from January till today
+    async function generateAndStoreData() {
+      const today = new Date();
+      const startDate = new Date(today.getFullYear(), 0, 1); // January 1st of the current year
 
-  for (let d = startDate; d <= today; d.setDate(d.getDate() + 1)) {
-    const formattedDate = d.toLocaleDateString('en-CA').replace(/-/g, '_'); // Format as YYYY_MM_DD
-    const data = {};
+      for (let d = startDate; d <= today; d.setDate(d.getDate() + 1)) {
+        const formattedDate = d.toLocaleDateString('en-CA').replace(/-/g, '_'); // Format as YYYY_MM_DD
+        const data = {};
 
-    // Generate random numbers for all games
-    games.forEach((game) => {
-      data[game] = generateRandomNumber();
-    });
+        // Generate random numbers for all games
+        games.forEach((game) => {
+          data[game] = generateRandomNumber();
+        });
 
-    // Reference for the date in Firebase
-    const dateRef = ref(db, 'randomNumbers/' + formattedDate);
+        // Reference for the date in Firebase
+        const dateRef = ref(db, 'randomNumbers/' + formattedDate);
 
-    // Update Firebase with random data for the day
-    await set(dateRef, data)
-      .then(() => {
-        console.log(`Data for ${formattedDate} updated successfully.`);
-      })
-      .catch((error) => {
-        console.error(`Error updating data for ${formattedDate}:`, error);
-      });
-  }
-}
+        // Update Firebase with random data for the day
+        await set(dateRef, data)
+          .then(() => {
+            console.log(`Data for ${formattedDate} updated successfully.`);
+          })
+          .catch((error) => {
+            console.error(`Error updating data for ${formattedDate}:`, error);
+          });
+      }
+    }
 
-// Execute the function
-generateAndStoreData();
+    // Execute the function
+    generateAndStoreData();
   </script>
 </body>
 </html>
