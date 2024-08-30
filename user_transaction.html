@@ -361,9 +361,9 @@
             Object.keys(bets).forEach(betKey => {
               const bet = bets[betKey];
               // Ensure bet object has the expected properties
-              const bidNumber = bet.bidNumber || 'N/A';
-              const gameType = bet.gameType || 'N/A';
-              const timestamp = bet.timestamp ? new Date(bet.timestamp).toLocaleDateString() : 'N/A'; // Format date
+              const bidNumber = bet.bidNumber || '--';
+              const gameType = bet.gameType || '--';
+              const timestamp = bet.timestamp ? new Date(bet.timestamp).toLocaleDateString() : '--'; // Format date
   
               const row = document.createElement('tr');
               row.innerHTML = `

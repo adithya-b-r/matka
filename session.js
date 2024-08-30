@@ -164,12 +164,12 @@ export async function fetchAllGameResults() {
   try {
     const results = {};
     const games = [
-      "GAZIYABAAD",
-      "DESAWAR",
-      "GALI",
-      "FARIDABAD",
-      "GOLDSTAR",
-      "GHAZIABAD DIN"
+      "GAZIYABAAD 2",
+      "DESAWAR 2",
+      "GALI 2",
+      "FARIDABAD 2",
+      "GOLDSTAR 2",
+      "GHAZIABAD DIN 2"
     ];
 
     const dbRef = ref(db, 'randomNumbers');

@@ -90,12 +90,12 @@
       <thead>
         <tr>
           <th>Date</th>
-          <th>GAZIYABAAD</th>
-          <th>DESAWAR</th>
-          <th>GALI</th>
-          <th>FARIDABAD</th>
-          <th>GOLDSTAR</th>
-          <th>GHAZIABAD DIN</th>
+          <th>GAZIYABAAD 2</th>
+          <th>DESAWAR 2</th>
+          <th>GALI 2</th>
+          <th>FARIDABAD 2</th>
+          <th>GOLDSTAR 2</th>
+          <th>GHAZIABAD DIN 2</th>
         </tr>
       </thead>
       <tbody>
@@ -123,8 +123,8 @@
           return new Date(b[0].replace(/_/g, '-')) - new Date(a[0].replace(/_/g, '-'));
         });
 
-        for (const [date, games] of Object.entries(results)) {
-        //for (const [date, games] of sortedResults) {
+        // for (const [date, games] of Object.entries(results)) {
+        for (const [date, games] of sortedResults) {
           // Extract month from date
           const dateParts = date.split('_');
           const month = dateParts[1]; // Extract month part from the date
@@ -140,13 +140,12 @@
           // Create a new row for the table
           const row = document.createElement('tr');
           row.innerHTML = `<td>${formattedDate}</td>` +
-            `<td>${games['GAZIYABAAD'].toString().padStart(2, '0')}</td>` +
-            `<td>${games['DESAWAR'].toString().padStart(2, '0')}</td>` +
-            `<td>${games['GALI'].toString().padStart(2, '0')}</td>` +
-            `<td>${games['FARIDABAD'].toString().padStart(2, '0')}</td>` +
-            `<td>${games['GOLDSTAR'].toString().padStart(2, '0')}</td>` +
-            `<td>${games['GHAZIABAD DIN'].toString().padStart(2, '0')}</td>`;
-
+            `<td>${games['GAZIYABAAD 2']}</td>` +
+            `<td>${games['DESAWAR 2']}</td>` +
+            `<td>${games['GALI 2']}</td>` +
+            `<td>${games['FARIDABAD 2']}</td>` +
+            `<td>${games['GOLDSTAR 2']}</td>` +
+            `<td>${games['GHAZIABAD DIN 2']}</td>`;
 
           // Append the row to the table body
           tableBody.appendChild(row);
