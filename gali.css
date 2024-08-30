@@ -498,7 +498,7 @@ p {
   line-height: .3
 }
 
-.satta-king-box {
+.Satta-king-box {
   border: 3px solid #000;
   background: #fff;
   border-radius: 10px;
@@ -507,7 +507,7 @@ p {
   margin-bottom: 5px
 }
 
-.satta-king-box-khaiwal {
+.Satta-king-box-khaiwal {
   border: 3px solid #000;
   background: #168aad;
   border-radius: 10px;
@@ -516,7 +516,7 @@ p {
   margin-bottom: 5px
 }
 
-.satta-king-box-5a {
+.Satta-king-box-5a {
   border: 3px solid #000;
   background-image: linear-gradient(#ffebcd 55%, #cef6f5);
   border-radius: 10px;
@@ -525,7 +525,7 @@ p {
   margin-bottom: 5px
 }
 
-.satta-king-box-5b {
+.Satta-king-box-5b {
   border: 3px solid #000;
   background-image: linear-gradient(#ffebcd 55%, #cef6f5);
   border-radius: 10px;
@@ -534,53 +534,53 @@ p {
   margin-bottom: 5px
 }
 
-.satta-king-box-title {
+.Satta-king-box-title {
   color: #000;
   font-weight: 700;
   font-size: 20px;
   margin: 0
 }
 
-.satta-king-box-khaiwal-title {
+.Satta-king-box-khaiwal-title {
   color: #f1ff2e;
   font-weight: 700;
   font-size: 20px;
   margin: 0
 }
 
-.satta-king-box-subtitle {
+.Satta-king-box-subtitle {
   color: #b30a0a;
   font-size: 16px;
   margin: 0 0 8px
 }
 
-.satta-king-box-description {
+.Satta-king-box-description {
   color: #00f;
   font-size: 16px;
   margin: 0;
   line-height: 1
 }
 
-.satta-king-khaiwal-box-description {
+.Satta-king-khaiwal-box-description {
   color: #fff;
   font-size: 16px;
   margin: 0;
   line-height: 1
 }
 
-.satta-king-box-contact {
+.Satta-king-box-contact {
   font-weight: 700;
   color: green;
   font-size: 18px;
   margin: 4px 0
 }
 
-.satta-king-box-buttons {
+.Satta-king-box-buttons {
   display: flex;
   justify-content: center
 }
 
-.satta-king-box-button {
+.Satta-king-box-button {
   padding: 5px 10px;
   color: #fff;
   text-decoration: none;
@@ -590,11 +590,11 @@ p {
   border: 1px solid #00f
 }
 
-.satta-king-khaiwal-whatsapp {
+.Satta-king-khaiwal-whatsapp {
   margin: 15px
 }
 
-.satta-king-khaiwal-box-button {
+.Satta-king-khaiwal-box-button {
   color: #fff;
   border-radius: 20px;
   font-weight: 700;
@@ -604,17 +604,17 @@ p {
   padding: 5px 10px
 }
 
-.satta-king-khaiwal-box-contact {
+.Satta-king-khaiwal-box-contact {
   font-weight: 700;
   color: #f1ff2e;
   font-size: 18px;
   margin: 4px 0
 }
 
-.satta-king-box-button.whatsapp {
+.Satta-king-box-button.whatsapp {
   background-color: green
 }
 
-.satta-king-box-button.call {
+.Satta-king-box-button.call {
   background-color: #00f
 }
