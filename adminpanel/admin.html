@@ -184,7 +184,7 @@
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const userRef = ref(db, `users/dkSatta`);
+                const userRef = ref(db, `users/dkmatka`);
                 const snapshot = await get(userRef);
 
                 if (snapshot.exists()) {
