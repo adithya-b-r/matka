@@ -3,9 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Data Generation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #status {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f0f0f0;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
+  <h1>Random Number Generator</h1>
+  <div id="status">Initializing...</div>
+
   <script type="module">
     // Import Firebase SDKs
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
@@ -38,36 +53,39 @@
 
     // Generate random data for each game with leading zero for single digits
     function generateRandomNumber() {
-      const num = Math.floor(Math.random() * 100) + 1; // Generates a number between 1 and 100
-      return num < 10 ? '0' + num : num; // Add leading zero if necessary
+      const num = Math.floor(Math.random() * 100) + 1;
+      return num < 10 ? '0' + num : num;
     }
 
     // Function to generate and store data from January till today
     async function generateAndStoreData() {
+      const statusElement = document.getElementById('status');
+      statusElement.textContent = "Generating data...";
+
       const today = new Date();
-      const startDate = new Date(today.getFullYear(), 0, 1); // January 1st of the current year
+      const startDate = new Date(today.getFullYear(), 0, 1);
 
       for (let d = startDate; d <= today; d.setDate(d.getDate() + 1)) {
-        const formattedDate = d.toLocaleDateString('en-CA').replace(/-/g, '_'); // Format as YYYY_MM_DD
+        const formattedDate = d.toLocaleDateString('en-CA').replace(/-/g, '_');
         const data = {};
 
-        // Generate random numbers for all games
         games.forEach((game) => {
           data[game] = generateRandomNumber();
         });
 
-        // Reference for the date in Firebase
         const dateRef = ref(db, 'randomNumbers/' + formattedDate);
 
-        // Update Firebase with random data for the day
-        await set(dateRef, data)
-          .then(() => {
-            console.log(`Data for ${formattedDate} updated successfully.`);
-          })
-          .catch((error) => {
-            console.error(`Error updating data for ${formattedDate}:`, error);
-          });
+        try {
+          await set(dateRef, data);
+          console.log(`Data for ${formattedDate} updated successfully.`);
+        } catch (error) {
+          console.error(`Error updating data for ${formattedDate}:`, error);
+          statusElement.textContent = `Error occurred: ${error.message}`;
+          return;
+        }
       }
+
+      statusElement.textContent = "Data generation completed successfully!";
     }
 
     // Execute the function
