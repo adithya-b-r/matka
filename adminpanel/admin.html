@@ -118,12 +118,12 @@
                         <div class="input-group">
                             <input type="date" id="game-date" class="form-control" />
                             <select id="game-select" class="form-control">
-                                <option value="GAZIYABAAD">GAZIYABAAD</option>
-                                <option value="DESAWAR">DESAWAR</option>
-                                <option value="GALI">GALI</option>
-                                <option value="FARIDABAD">FARIDABAD</option>
-                                <option value="GOLDSTAR">GOLDSTAR</option>
-                                <option value="GHAZIABAD DIN">GHAZIABAD DIN</option>
+                                <option value="GAZIYABAAD 2">GAZIYABAAD 2</option>
+                                <option value="DESAWAR 2">DESAWAR 2</option>
+                                <option value="GALI 2">GALI 2</option>
+                                <option value="FARIDABAD 2">FARIDABAD 2</option>
+                                <option value="GOLDSTAR 2">GOLDSTAR 2</option>
+                                <option value="GHAZIABAD DIN 2">GHAZIABAD DIN 2</option>
                             </select>
                             <input type="text" id="game-result" class="form-control" placeholder="Enter result" />
                             <button class="update-btn" id="update-result">Submit</button>
@@ -135,12 +135,12 @@
                                 <th>Date</th>
                                 <!-- <th>Game</th> -->
                                 <!-- <th>Number</th> -->
-                                <th>GAZIYABAAD</th>
-                                <th>DESAWAR</th>
-                                <th>GALI</th>
-                                <th>FARIDABAD</th>
-                                <th>GOLDSTAR</th>
-                                <th>GHAZIABAD DIN</th>
+                                <th>GAZIYABAAD 2</th>
+                                <th>DESAWAR 2</th>
+                                <th>GALI 2</th>
+                                <th>FARIDABAD 2</th>
+                                <th>GOLDSTAR 2</th>
+                                <th>GHAZIABAD DIN 2</th>
                             </tr>
                         </thead>
                         <tbody id="games-table-body">
@@ -184,7 +184,7 @@
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                /*const userRef = ref(db, `users/${user.uid}`);
+                const userRef = ref(db, `users/${user.uid}`);
                 const snapshot = await get(userRef);
 
                 if (snapshot.exists()) {
@@ -196,7 +196,7 @@
                 } else {
                     console.log('No user data available.');
                     window.location.href = 'login.html';  // Redirect if no user data found
-                }*/
+                }
             } else {
                 window.location.href = 'login.html';  // Redirect if not authenticated
             }
@@ -223,7 +223,7 @@
                     for (const phoneNumber in users) {
                         const user = users[phoneNumber];
                         const history = user.history || 'No history';
-                        const balance = user.balance || 'N/A';
+                        const balance = user.balance || '--';
 
                         const row = document.createElement('tr');
                         row.innerHTML = `
@@ -263,7 +263,7 @@
                     const tableBody = document.getElementById('games-table-body');
                     tableBody.innerHTML = ''; // Clear previous data
 
-                    const gameOrder = ['GAZIYABAAD', 'DESAWAR', 'GALI', 'FARIDABAD', 'GOLDSTAR', 'GHAZIABAD DIN'];
+                    const gameOrder = ['GAZIYABAAD 2', 'DESAWAR 2', 'GALI 2', 'FARIDABAD 2', 'GOLDSTAR 2', 'GHAZIABAD DIN 2'];
 
                     // Sort the game data in descending order by date
                     const sortedGamesData = Object.entries(gamesData).sort((a, b) => {
@@ -281,7 +281,7 @@
 
                         // Populate the table row with game data
                         gameOrder.forEach(game => {
-                            rowHTML += `<td>${games[game] || 'N/A'}</td>`;
+                            rowHTML += `<td>${games[game] || '--'}</td>`;
                         });
 
                         row.innerHTML = rowHTML;
