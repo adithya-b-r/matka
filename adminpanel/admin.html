@@ -101,7 +101,7 @@
                         <thead>
                             <tr>
                                 <th>Phone Number</th>
-                                <th>History</th>
+                                <!-- <th>History</th> -->
                                 <th>Balance</th>
                                 <th>Actions</th>
                             </tr>
@@ -225,13 +225,24 @@
                         const history = user.history || 'No history';
                         const balance = user.balance || '--';
 
+                        // Initialize bet info
+                        let bets = 'No bets';
+
+                        // Check if user has bet data
+                        if (user.history && typeof user.history === 'object') {
+                            bets = Object.keys(user.history).map(betKey => {
+                                const bet = user.history[betKey];
+                                return `Bet ${betKey}: Number - ${bet.bidNumber}, Type - ${bet.gameType}, Time - ${bet.timestamp}`;
+                            }).join('<br>');
+                        }
+
+                        // Create a new table row for each user
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${phoneNumber}</td>
-                            <td>${history}</td>
-                            <td><input type="text" class="form-control balance-input" value="${balance}" /></td>
-                            <td><button class="update-btn" data-phone="${phoneNumber}">Update</button></td>
-                        `;
+                    <td>${phoneNumber}</td>
+                    <td><input type="text" class="form-control balance-input" value="${balance}" /></td>
+                    <td><button class="update-btn" data-phone="${phoneNumber}">Update</button></td>
+                `;
                         tableBody.appendChild(row);
                     }
                 } else {
@@ -241,6 +252,7 @@
                 console.error('Error fetching user data:', error);
             }
         }
+
 
         async function updateUserBalance(phoneNumber, newBalance) {
             try {
