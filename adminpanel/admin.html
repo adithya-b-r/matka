@@ -135,12 +135,12 @@
                                 <th>Date</th>
                                 <!-- <th>Game</th> -->
                                 <!-- <th>Number</th> -->
-                                <th>GAZIYABAAD 2</th>
                                 <th>DESAWAR 2</th>
-                                <th>GALI 2</th>
                                 <th>FARIDABAD 2</th>
-                                <th>GOLDSTAR 2</th>
+                                <th>GALI 2</th>
+                                <th>GAZIYABAAD 2</th>
                                 <th>GHAZIABAD DIN 2</th>
+                                <th>GOLDSTAR 2</th>
                             </tr>
                         </thead>
                         <tbody id="games-table-body">
@@ -275,7 +275,7 @@
                     const tableBody = document.getElementById('games-table-body');
                     tableBody.innerHTML = ''; // Clear previous data
 
-                    const gameOrder = ['GAZIYABAAD 2', 'DESAWAR 2', 'GALI 2', 'FARIDABAD 2', 'GOLDSTAR 2', 'GHAZIABAD DIN 2'];
+                    const gameOrder = ['DESAWAR 2', 'FARIDABAD 2', 'GALI 2', 'GAZIYABAAD 2', 'GHAZIABAD DIN 2', 'GOLDSTAR 2'];
 
                     // Sort the game data in descending order by date
                     const sortedGamesData = Object.entries(gamesData).sort((a, b) => {
