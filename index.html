@@ -231,6 +231,80 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
+    // async function setGameStatus() {
+    //   const today = new Date();
+    //   const dateTimeIST = today.toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false }).replace(/,/g, '');
+    //   const [date, time] = dateTimeIST.split(' ');
+
+    //   // Convert date to YYYY_MM_DD format
+    //   const [day, month, year] = date.split('/');
+    //   const formattedDate = `${year}_${month}_${day}`;
+
+    //   try {
+    //     const gamesRef = ref(db, `randomNumbers/${formattedDate}`);
+    //     const snapshot = await get(gamesRef);
+
+    //     if (snapshot.exists()) {
+    //       const gamesData = snapshot.val();
+
+    //       // Update game status with fetched data
+    //       document.getElementById("game1").innerText = " ";
+    //       document.getElementById("game1").style.color = "green";
+    //       document.getElementById("game1Status").innerHTML = `<a href='/results.html'>${gamesData['DESAWAR 2'] || '--'}</a>`;
+
+    //       document.getElementById("game2").innerText = " ";
+    //       document.getElementById("game2").style.color = "green";
+    //       document.getElementById("game2Status").innerHTML = `<a href='/results.html'>${gamesData['FARIDABAD 2'] || '--'}</a>`;
+
+    //       document.getElementById("game3").innerText = " ";
+    //       document.getElementById("game3").style.color = "green";
+    //       document.getElementById("game3Status").innerHTML = `<a href='/results.html'>${gamesData['GALI 2'] || '--'}</a>`;
+
+    //       document.getElementById("game4").innerText = " ";
+    //       document.getElementById("game4").style.color = "green";
+    //       document.getElementById("game4Status").innerHTML = `<a href='/results.html'>${gamesData['GAZIYABAAD 2'] || '--'}</a>`;
+
+    //       document.getElementById("game5").innerText = " ";
+    //       document.getElementById("game5").style.color = "green";
+    //       document.getElementById("game5Status").innerHTML = `<a href='/results.html'>${gamesData['GHAZIABAD DIN 2'] || '--'}</a>`;
+
+    //       document.getElementById("game6").innerText = ' ';
+    //       document.getElementById("game6").style.color = "green";
+    //       document.getElementById("game6Status").innerHTML = `<a href='/results.html'>${gamesData['GOLDSTAR 2'] || '--'}</a>`;
+
+    //     } else {
+    //       console.log("No data available for today's date.");
+    //       document.getElementById("game1").innerText = "";
+    //       document.getElementById("game1").style.color = "green";
+    //       document.getElementById("game1Status").innerHTML = `--`;
+
+    //       document.getElementById("game2").innerText = "";
+    //       document.getElementById("game2").style.color = "green";
+    //       document.getElementById("game2Status").innerHTML = `--`;
+
+    //       document.getElementById("game3").innerText = "";
+    //       document.getElementById("game3").style.color = "green";
+    //       document.getElementById("game3Status").innerHTML = `--`;
+
+    //       document.getElementById("game4").innerText = "";
+    //       document.getElementById("game4").style.color = "green";
+    //       document.getElementById("game4Status").innerHTML = `--`;
+
+    //       document.getElementById("game5").innerText = "";
+    //       document.getElementById("game5").style.color = "green";
+    //       document.getElementById("game5Status").innerHTML = `--`;
+
+    //       document.getElementById("game6").innerText = "";
+    //       document.getElementById("game6").style.color = "green";
+    //       document.getElementById("game6Status").innerHTML = `--`;
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching today's data:", error);
+    //   }
+
+
+    // }
+
     async function setGameStatus() {
       const today = new Date();
       const dateTimeIST = today.toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false }).replace(/,/g, '');
@@ -238,72 +312,80 @@
 
       // Convert date to YYYY_MM_DD format
       const [day, month, year] = date.split('/');
-      const formattedDate = `${year}_${month}_${day}`;
+      let formattedDate = `${year}_${month}_${day}`;
+
+      // Game timings (24-hour format)
+      const gameTimes = [
+        { gameId: "game1", time: "05:15", gameName: "DESAWAR 2" },
+        { gameId: "game2", time: "18:00", gameName: "FARIDABAD 2" },
+        { gameId: "game3", time: "23:50", gameName: "GALI 2" },
+        { gameId: "game4", time: "20:50", gameName: "GAZIYABAAD 2" },
+        { gameId: "game5", time: "16:30", gameName: "GHAZIABAD DIN 2" },
+        { gameId: "game6", time: "16:15", gameName: "GOLDSTAR 2" }
+      ];
+
+      // Function to get yesterday's date
+      const getYesterdayFormattedDate = () => {
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
+        const yesterdayDateTime = yesterday.toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false }).replace(/,/g, '');
+        const [yesterdayDate] = yesterdayDateTime.split(' ');
+        const [yDay, yMonth, yYear] = yesterdayDate.split('/');
+        return `${yYear}_${yMonth}_${yDay}`;
+      };
+
+      const yesterdayFormattedDate = getYesterdayFormattedDate();
 
       try {
-        const gamesRef = ref(db, `randomNumbers/${formattedDate}`);
-        const snapshot = await get(gamesRef);
+        // Fetch data for today and yesterday
+        const todayRef = ref(db, `randomNumbers/${formattedDate}`);
+        const yesterdayRef = ref(db, `randomNumbers/${yesterdayFormattedDate}`);
 
-        if (snapshot.exists()) {
-          const gamesData = snapshot.val();
+        const [todaySnapshot, yesterdaySnapshot] = await Promise.all([get(todayRef), get(yesterdayRef)]);
 
-          // Update game status with fetched data
-          document.getElementById("game1").innerText = " ";
-          document.getElementById("game1").style.color = "green";
-          document.getElementById("game1Status").innerHTML = `<a href='/results.html'>${gamesData['DESAWAR 2'] || '--'}</a>`;
+        const updateGameStatus = (gameId, gameName, gamesData) => {
+          document.getElementById(gameId).innerText = " ";
+          document.getElementById(gameId).style.color = "green";
+          document.getElementById(`${gameId}Status`).innerHTML = `<a href='/results.html'>${gamesData[gameName] || '--'}</a>`;
+        };
 
-          document.getElementById("game2").innerText = " ";
-          document.getElementById("game2").style.color = "green";
-          document.getElementById("game2Status").innerHTML = `<a href='/results.html'>${gamesData['FARIDABAD 2'] || '--'}</a>`;
+        const resetGameStatus = (gameId) => {
+          document.getElementById(gameId).innerText = "";
+          document.getElementById(gameId).style.color = "green";
+          document.getElementById(`${gameId}Status`).innerHTML = `--`;
+        };
 
-          document.getElementById("game3").innerText = " ";
-          document.getElementById("game3").style.color = "green";
-          document.getElementById("game3Status").innerHTML = `<a href='/results.html'>${gamesData['GALI 2'] || '--'}</a>`;
+        // Check both today and yesterday's snapshots
+        if (todaySnapshot.exists() || yesterdaySnapshot.exists()) {
+          const todayData = todaySnapshot.exists() ? todaySnapshot.val() : {};
+          const yesterdayData = yesterdaySnapshot.exists() ? yesterdaySnapshot.val() : {};
 
-          document.getElementById("game4").innerText = " ";
-          document.getElementById("game4").style.color = "green";
-          document.getElementById("game4Status").innerHTML = `<a href='/results.html'>${gamesData['GAZIYABAAD 2'] || '--'}</a>`;
-
-          document.getElementById("game5").innerText = " ";
-          document.getElementById("game5").style.color = "green";
-          document.getElementById("game5Status").innerHTML = `<a href='/results.html'>${gamesData['GHAZIABAD DIN 2'] || '--'}</a>`;
-
-          document.getElementById("game6").innerText = ' ';
-          document.getElementById("game6").style.color = "green";
-          document.getElementById("game6Status").innerHTML = `<a href='/results.html'>${gamesData['GOLDSTAR 2'] || '--'}</a>`;
-
+          gameTimes.forEach(({ gameId, time: gameTime, gameName }) => {
+            // If current time is before the game's time, use yesterday's data
+            if (time < gameTime) {
+              if (yesterdayData[gameName]) {
+                updateGameStatus(gameId, gameName, yesterdayData);
+              } else {
+                resetGameStatus(gameId);
+              }
+            } else {
+              if (todayData[gameName]) {
+                updateGameStatus(gameId, gameName, todayData);
+              } else {
+                resetGameStatus(gameId);
+              }
+            }
+          });
         } else {
-          console.log("No data available for today's date.");
-          document.getElementById("game1").innerText = "";
-          document.getElementById("game1").style.color = "green";
-          document.getElementById("game1Status").innerHTML = `--`;
-
-          document.getElementById("game2").innerText = "";
-          document.getElementById("game2").style.color = "green";
-          document.getElementById("game2Status").innerHTML = `--`;
-
-          document.getElementById("game3").innerText = "";
-          document.getElementById("game3").style.color = "green";
-          document.getElementById("game3Status").innerHTML = `--`;
-
-          document.getElementById("game4").innerText = "";
-          document.getElementById("game4").style.color = "green";
-          document.getElementById("game4Status").innerHTML = `--`;
-
-          document.getElementById("game5").innerText = "";
-          document.getElementById("game5").style.color = "green";
-          document.getElementById("game5Status").innerHTML = `--`;
-
-          document.getElementById("game6").innerText = "";
-          document.getElementById("game6").style.color = "green";
-          document.getElementById("game6Status").innerHTML = `--`;
+          console.log("No data available for today's or yesterday's date.");
+          gameTimes.forEach(({ gameId }) => resetGameStatus(gameId));
         }
       } catch (error) {
-        console.error("Error fetching today's data:", error);
+        console.error("Error fetching today's or yesterday's data:", error);
+        gameTimes.forEach(({ gameId }) => resetGameStatus(gameId));
       }
-
-
     }
+
 
     export function manipulateNav() {
       CheckSession().then(({ loggedIn, userName, userPhone }) => {
@@ -341,7 +423,8 @@
     };
   </script>
 
-  <div class="result1"><span style="font-size:30px;cursor:pointer; padding-bottom: 15px;" onclick="openNav()">&#9776;</span>
+  <div class="result1"><span style="font-size:30px;cursor:pointer; padding-bottom: 15px;"
+      onclick="openNav()">&#9776;</span>
     <div class="result2"><a href="/">
         <font size="5">Dk Satta</font><br>India No.1 Betting Website
       </a></div>
@@ -386,8 +469,8 @@
   <header>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="gali.css">
-  
-  
+
+
     <marquee class="gr-marquee">
       <span>Satta king, Sattaking, Desawar result, Satta result, Satta king result, Satta king live, Satta king online ,
         Gali result, Faridabad result, Gaziyabad result, Satta king chart, Desawar record chart, Gali record chart,
@@ -403,15 +486,15 @@
     <p class="Satta-king-box-subtitle">D.N Khaebal</p>
     <p class="Satta-king-box-description"></p>
     <p class="Satta-king-box-contact">9993272011</p>
-  
+
     <div class="Satta-king-box-buttons">
       <a href="https://api.whatsapp.com/send?phone=+919993272011&text=%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%AD%E0%A5%80%20%E0%A4%97%E0%A5%87%E0%A4%AE%20%E0%A4%96%E0%A5%87%E0%A4%B2%E0%A4%A8%E0%A4%BE%20%E0%A4%B9%E0%A5%88%E0%A5%A4"
         target="_blank" rel="nofollow" class="Satta-king-box-button whatsapp">WhatsApp</a>
       <a href="tel:9993272011" class="Satta-king-box-button call">Call Now</a>
     </div>
   </div>
-  
-  
+
+
   <div class="Satta-king-box 2">
     <p class="Satta-king-box-title">GALI DESAWAR 2 COMPANY</p>
     <p class="Satta-king-box-subtitle">9993272011
@@ -440,16 +523,17 @@
       <a href="tel:9303466342" class="Satta-king-box-button call">Call Now</a>
     </div>
   </div>
-  
-  
+
+
   <div class="Satta-king-box 4">
     <p class="Satta-king-box-title">Satta king</p>
-  
+
     <p class="Satta-king-box-description">गली दिसावर गाजियाबाद फरीदाबाद नऐ साल पर होगी सबके घर में खुशियाँ। गेम लो सिंगल
       जोड़ी में दिसावर & कंपनी से लीक गेम जो होगा 100% फिक्स। कंपनी के खाते में पैसा जमा करवाकर कंपनी से गेम लें। गली और
-      दिसावर कंपनी से लीक और फास्ट गेम बुक करवाएं और अपना लॉस वापस करें। डेट फिक्स गेम मिलेगी। जिस भाई का कभी गेम पास नहीं
+      दिसावर कंपनी से लीक और फास्ट गेम बुक करवाएं और अपना लॉस वापस करें। डेट फिक्स गेम मिलेगी। जिस भाई का कभी गेम पास
+      नहीं
       हुआ हो और परेशान हो, तो हमसे संपर्क करें।</p>
-  
+
     <p class="Satta-king-box-contact">9303466342</p>
     <p class="Satta-king-box-subtitle">D.K Satta C.O</p>
     <div class="Satta-king-box-buttons">
@@ -473,8 +557,8 @@
       <table border="1px;" width="100%;" border-color="#fff" cellspacing="0"
         style="background-color:#fff; color:#000; border-radius:10px; border-radius:2px; border-style:groove; border-size:1px; margin-top:5px; margin-bottom:5px;text-align: center;">
         <tr>
-          <td><span style="font-size:22px; color: green; font-weight: bold;; color: green;;">FARIDABAD 2 </span><br><span
-              style="color:purple; font-size:14px;">[06:00 PM]</span><br><span
+          <td><span style="font-size:22px; color: green; font-weight: bold;; color: green;;">FARIDABAD 2
+            </span><br><span style="color:purple; font-size:14px;">[06:00 PM]</span><br><span
               style="font-size:20px; color:blue"><b><span id="game2Status"><a href='/results.html'>--</a>
                   </span< /b></span><br>
                 <span style="color:red; font-size:15px; font-weight: 600;" id="game2"></span>
@@ -487,7 +571,7 @@
             style="background-color:#fff; color:#000; border-radius:10px; border-radius:2px; border-style:groove; border-size:1px; margin-top:5px; margin-bottom:5px;text-align: center;">
             <tr>
               <td><span style="font-size:22px; color: green; font-weight: bold;; color: green;;">GALI 2
-                </span><br><span style="color:purple; font-size:14px;">[11:50 PM]</span><br><span
+                </span><br><span style="color:purple; font-size:14px;">[04:30 PM]</span><br><span
                   style="font-size:20px; color:blue"><b><span id="game3Status"><a href='/results.html'>--</a>
                       </span< /b></span><br>
                     <span style="color:red; font-size:15px; font-weight: 600;" id="game3"></span>
@@ -500,7 +584,7 @@
                 style="background-color:#fff; color:#000; border-radius:10px; border-radius:2px; border-style:groove; border-size:1px; margin-top:5px; margin-bottom:5px;text-align: center;">
                 <tr>
                   <td><span style="font-size:22px; color: green; font-weight: bold;; color: green;;">GHAZIABAAD 2
-                    </span><br><span style="color:purple; font-size:14px;">[08:50 PM]
+                    </span><br><span style="color:purple; font-size:14px;">[11:50 PM]
                     </span><br><span style="font-size:20px; color:blue"><b><span id="game4Status"><a
                             href='/results.html'>--</a></span< /b></span><br>
                         <span style="color:red; font-size:15px; font-weight: 600;" id="game4"></span>
@@ -513,8 +597,9 @@
                     style="background-color:#fff; color:#000; border-radius:10px; border-radius:2px; border-style:groove; border-size:1px; margin-top:5px; margin-bottom:5px;text-align: center;">
                     <tr>
                       <td><span style="font-size:22px; color: green; font-weight: bold;; color: green;;">GHAZIABAD DIN 2
-                        </span><br><span style="color:purple; font-size:14px;">[04:30 PM]</span><br><span
-                          style="font-size:20px; color:blue"><b><span id="game5Status"><a href='/results.html'>--</a></span></b></span><br>
+                        </span><br><span style="color:purple; font-size:14px;">[08:50 PM]</span><br><span
+                          style="font-size:20px; color:blue"><b><span id="game5Status"><a
+                                href='/results.html'>--</a></span></b></span><br>
                         <span style="color:red; font-size:15px; font-weight: 600;" id="game5"></span>
                       </td>
                       <td width="30%"><a onclick="checkGame('GHAZIABAD DIN 2', 5)"><img src="/icon/play.jpg"
@@ -526,7 +611,8 @@
                         <tr>
                           <td><span style="font-size:22px; color: green; font-weight: bold;; color: green;;">GOLDSTAR 2
                             </span><br><span style="color:purple; font-size:14px;">[04:15 PM]</span><br><span
-                              style="font-size:20px; color:blue"><b><span id="game6Status"><a href='/results.html'>--</a></span< /b></span><br>
+                              style="font-size:20px; color:blue"><b><span id="game6Status"><a
+                                    href='/results.html'>--</a></span< /b></span><br>
                                 <span style="color:red; font-size:15px; font-weight: 600;" id="game6"></span>
                           </td>
                           <td width="30%"><a onclick="checkGame('GOLDSTAR 2', 6)"><img src="/icon/play.jpg"
@@ -618,7 +704,8 @@
                                 &#2350;&#2366;&#2360;&#2381;&#2325; &#2361;&#2350;&#2375;&#2358;&#2366;
                                 &#2351;&#2370;&#2395; &#2325;&#2352;&#2375;! <br><br>Paytm, Phonepe, GooglePay,
                                 Number<br><br><a href="tel:9993272011">9993272011</a>
-                              <br>D.N Khaebal</td>
+                                <br>D.N Khaebal
+                              </td>
                             </tr>
                           </table>
                           <p>DK Satta is a very basic game where you are required to guess numbers that range between
