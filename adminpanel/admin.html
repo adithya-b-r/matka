@@ -341,6 +341,9 @@
                 });
             }
 
+            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+            document.getElementById('game-date').setAttribute('max', today); // Set the max attribute to today's date
+
             sidebarLinks.forEach(link => {
                 link.addEventListener('click', function (e) {
                     e.preventDefault();
